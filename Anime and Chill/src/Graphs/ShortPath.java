@@ -17,7 +17,7 @@ public class ShortPath {
 	}
 	
 	public static Graph buildG() throws IOException{
-		File cities = new File("data/connectedCities.txt");
+		File cities = new File("Data/connectedCities.txt");
 		BufferedReader buff = new BufferedReader(new FileReader(cities));
 		String line = null;
 		

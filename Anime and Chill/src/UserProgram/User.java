@@ -1,8 +1,10 @@
 package UserProgram;
 
-import DataAlloc.DataManipulate;
-
+import java.io.IOException;
 import java.sql.SQLException;
+
+import DataAlloc.DataManipulate;
+import Graphs.ShortPath;
 
 public class User {
 
@@ -47,7 +49,7 @@ public class User {
 		}
 	}
 
-	public void fillPotential() throws SQLException {
+	public void fillPotential() throws SQLException, IOException {
 
 		this.popMatCount = 0;
 
@@ -83,24 +85,29 @@ public class User {
 		sort();
 	}
 
-	private double compareUser(User that) {
+	private double compareUser(User that) throws IOException{
 
 		double totalDifference = 0.0;
 		Integer[] thatAnimeList = that.getAnimeList();
 		double[] thatScores = that.getScores();
+		int count = 0;
 
 		for (int i = 0; i < this.animeList.length; i++) {
 			for (int j = 0; j < thatAnimeList.length; j++) {
-				if (this.animeList[i] == thatAnimeList[j])
-					totalDifference += Math.abs((this.scores[i] - thatScores[j])); // This computes the compatability
-																					// score between the user and
-																					// another user
+				if (this.animeList[i] == thatAnimeList[j]) {
+					//this computes the compatability score between the user and another user
+					totalDifference += Math.abs((this.scores[i] - thatScores[j]));
+					count++;
+				}
 			}
 		}
+		
+		double compate = totalDifference / count + ShortPath.path(this.getLocation(), that.getLocation());
+		
 		return Math.abs(totalDifference);
 	}
 
-	private void sort() {
+	private void sort() throws IOException{
 
 		// Trying to sort potMat by the scores received by compareUser
 
@@ -152,7 +159,7 @@ public class User {
 	/* ***************** MAIN TEST METHODS ***************** */
 	/* ***************************************************** */
 
-	public static void main(String[] args) throws SQLException {
+	public static void main(String[] args) throws SQLException, IOException {
 
 		Integer[] animeList1 = { 1, 2, 3, 4, 5 };
 		int[] eps1 = { 4, 2, 7, 5, 6 };
