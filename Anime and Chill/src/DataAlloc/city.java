@@ -1,8 +1,8 @@
 package DataAlloc;
 
 public enum city {
-	boston, new_york_city, philadelphia, baltimore, washington, charlotte, atlanta, pittsburgh,
-	columbus, indianapolis, st_louis, kansas_city, denver, oklahoma_city, dallas, houston, new_orleans,
-	memphis, jacksonville, nashville, chicago, minneapolis, salt_lake_city, las_vegas, los_angeles,
-	san_francisco, portland, seattle, phoenix, albuquerque, san_antonio, miami;
+	Boston, New_York_City, Philadelphia, Baltimore, Washington, Charlotte, Atlanta, Pittsburgh,
+	Columbus, Indianapolis, St_louis, Kansas_City, Denver, OklahomaCity, Dallas, Houston, New_Orleans,
+	Memphis, Jacksonville, Nashville, Chicago, Minneapolis, Salt_Lake_City, las_Vegas, Los_Angeles,
+	San_Francisco, Portland, Seattle, Phoenix, Albuquerque, San_Antonio, Miami;
 }
