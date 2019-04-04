@@ -72,7 +72,7 @@ public class UsingProcessing extends PApplet {
 //		loop();
 
 		/* IMAGE LOADING */
-		login_screen = loadImage("logo_anime.jpg");
+		login_screen = loadImage("logo_anime.png");
 		login_screen.resize(width / 2 + 20, height / 2);
 
 		imageMode(CENTER);
