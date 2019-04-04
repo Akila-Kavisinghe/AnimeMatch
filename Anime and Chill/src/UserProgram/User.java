@@ -19,7 +19,7 @@ public class User {
 
 	private int friendCount = 0; // Keeps tracks of how many friends are in "friends
 
-	private User[] potMat = new User[1000]; // Randomly filled potential mates
+	private User[] potMat = new User[10]; // Randomly filled potential mates
 	private int potMatCount = 0;
 
 	private int location;
@@ -65,8 +65,8 @@ public class User {
 		for(int i = 0; i < this.animeList.length; i++) {
 			String[] mates = AnimeData.retrieve_data(this.animeList[i], "users").split(" ");
 			for(int j = 0; j < mates.length; j++) {
-				if(!(mates[i].equals(this.username)))
-					allmates.add(mates[i]);
+				if(!(mates[j].equals(this.username)))
+					allmates.add(mates[j]);
 			}
 		}
 		
@@ -89,9 +89,13 @@ public class User {
 			}
 			
 			String thisloc = DataManipulate.retrieve_data(strmates[j], "location");
-			this.potMat[j] = new User(strmates[j], strthisanimes, thiseps, thisscore, Integer.parseInt(thisloc));
+			if(this.potMatCount != 10) {
+				this.potMat[j] = new User(strmates[j], strthisanimes, thiseps, thisscore, Integer.parseInt(thisloc));
+				this.potMatCount++;
+			}
 			
 		}
+		this.potMatCount = 0;
 		sortPotMat();
 		
 		

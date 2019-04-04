@@ -3,6 +3,7 @@ package DataAlloc;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -45,41 +46,56 @@ public class UsingProcessing extends PApplet {
 	}
 
 	public void setup() {
-		String[] animeList1 = { "1", "2", "3", "4", "5" };
+		String[] animeList1 = { "5680", "106", "122", "481", "75" };
 		int[] eps1 = { 1, 2, 3, 4, 5 };
 		double[] scores1 = { 1.0, 2.0, 3.0, 4.0, 5.0 };
 		Akila = new User("Akila Kavisinghe", animeList1, eps1, scores1, 12);
-
-		String[] animeList = { "5", "1", "2", "3", "4" };
+//
+		String[] animeList = { "27", "7482", "743", "248", "106" };
 		int[] eps = { 1, 2, 4, 3, 2 };
 		double[] scores = { 5.0, 2.0, 3.0, 1.0, 7.0 };
 
-		User bobby = new User("bobby", animeList, eps, scores, 2);
+		User bobby = new User("redVelvet", animeList, eps, scores, 2);
 
-		String[] animeList11 = { "5", "1", "2", "4", "5" };
+		String[] animeList11 = { "434", "278", "223", "451", "5232" };
 		int[] eps11 = { 1, 2, 4, 3, 5 };
 		double[] scores11 = { 2.0, 6.0, 3.1, 5.0, 1.5 };
 
-		User eric = new User("behhh", animeList11, eps11, scores11, 4);
+		User eric = new User("iamSenpai", animeList11, eps11, scores11, 4);
 
-		String[] insAnimes = { "5", "2", "4", "3", "1" };
+		String[] insAnimes = { "558", "362", "854", "3125", "124" };
 		int[] insEps = { 12, 234, 97, 82, 72 };
 		double[] insScores = { 8.3, 9.4, 4.2, 9.5, 3.7 };
 
-		User oleg = new User("oleg", insAnimes, insEps, insScores, 7);
+		User oleg = new User("thedog", insAnimes, insEps, insScores, 7);
 
-		String[] insAnimes1 = { "5", "2", "4", "3", "1" };
+		String[] insAnimes1 = { "598", "273", "420", "347", "127" };
 		int[] insEps1 = { 672, 40, 273, 38, 38 };
 		double[] insScores1 = { 9.2, 8.5, 3.7, 7.9, 8.2 };
 
-		User billy = new User("billy", insAnimes1, insEps1, insScores1, 10);
+		User billy = new User("billy798", insAnimes1, insEps1, insScores1, 10);
+		
+		String[] insAnimes2 = { "283", "598", "234", "347", "193" };
+		int[] insEps2 = { 672, 40, 273, 38, 38 };
+		double[] insScores2 = { 9.2, 8.5, 3.7, 7.9, 8.2 };
 
-		User[] users = { bobby, eric, oleg, billy };
+		User jacky = new User("jackyJACK", insAnimes2, insEps2, insScores2, 12);
+		String[] insAnimes3 = { "124", "293", "284", "347", "434" };
+		int[] insEps3 = { 672, 40, 273, 38, 38 };
+		double[] insScores3 = { 9.2, 8.5, 3.7, 7.9, 8.2 };
 
-//		Akila.fillPotential();
+		User jensen = new User("oldmanjensen", insAnimes3, insEps3, insScores3, 16);
+		User[] users = { bobby, eric, oleg, billy , jacky, jensen};
+
+//		try {
+//			Akila.fillPotentialTest(users);
+//		} catch (SQLException | IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 
 		background(255);
-
+		Akila.fillPotentialTest(users);
 //		loading_screen = loadImage("loading_screen.jpg");
 //		loading_screen.resize(width, height);
 //		image(loading_screen, 0, 0);
@@ -105,7 +121,7 @@ public class UsingProcessing extends PApplet {
 
 		friends_list = loadImage("friends_list.jpg");
 		friends_list.resize(width, height - 52);
-		Akila.fillPotentialTest(users);
+		// Akila.fillPotentialTest(users);
 
 		for (int i = 0; i < 4; i++) {
 			profilePictures[i] = loadImage("profile" + (i + 1) + ".jpg");
@@ -238,24 +254,26 @@ public class UsingProcessing extends PApplet {
 			rect(width / 2, height - 95, 250, 100);
 
 			User potMatUser = Akila.getPotMatUser();
+			
 
-			String userName = potMatUser.getUser();
-			String userAnimeList = potMatUser.getAnimeList()[0] + ", " + potMatUser.getAnimeList()[1] + ", "
-					+ potMatUser.getAnimeList()[2]; // WE NEED TO GET THE ANIME NAME INSTEAD OF SHOWING THE ID
-			String userCity = "" + city.values()[potMatUser.getLocation()];
+			
+				String userName = potMatUser.getUser();
+				String userAnimeList = potMatUser.getAnimeList()[0] + ", " + potMatUser.getAnimeList()[1] + ", "
+						+ potMatUser.getAnimeList()[2]; // WE NEED TO GET THE ANIME NAME INSTEAD OF SHOWING THE ID
+				String userCity = "" + city.values()[potMatUser.getLocation()];
+				userCity = userCity.replace("_", " ");
+				textSize(24);
+				textAlign(CENTER);
+				fill(255);
+				text(userName, width / 2, height - 120);
+				text(userAnimeList, width / 2, height - 96);
+				text(userCity, width / 2, height - 72);
+				image(profilePictures[random], width / 2, height / 2 - 35);
+				if (storyCheck) {
+					storyDisplay();
+				}
 
-			userCity = userCity.replace("_", " ");
 
-			textSize(24);
-			textAlign(CENTER);
-			fill(255);
-			text(userName, width / 2, height - 120);
-			text(userAnimeList, width / 2, height - 96);
-			text(userCity, width / 2, height - 72);
-			image(profilePictures[random], width / 2, height / 2 - 35);
-			if (storyCheck) {
-				storyDisplay();
-			}
 		} else if (currentScreen == 2) {
 			image(friends_list, width / 2, height / 2 + 26);
 			image(main_bar, width / 2, 26);
@@ -266,16 +284,16 @@ public class UsingProcessing extends PApplet {
 			text(searchName, width / 4, 100);
 
 			if (searched) {
-				if (findSearch.getString1()[0].length() > 0)
+				if (findSearch.getString1()[0].length() > 0 && findSearch.getString1()[4].length() > 0)
 					text(findSearch.getString1()[0] + ", "
 							+ city.values()[Integer.parseInt(findSearch.getString1()[4])], width / 4, 200);
-				if (findSearch.getString2()[0].length() > 0)
+				if (findSearch.getString2()[0].length() > 0 && findSearch.getString2()[4].length() > 0)
 					text(findSearch.getString2()[0] + ", "
 							+ city.values()[Integer.parseInt(findSearch.getString2()[4])], width / 4, 250);
-				if (findSearch.getString3()[0].length() > 0)
+				if (findSearch.getString3()[0].length() > 0 && findSearch.getString3()[4].length() > 0)
 					text(findSearch.getString3()[0] + ", "
 							+ city.values()[Integer.parseInt(findSearch.getString3()[4])], width / 4, 300);
-				if (findSearch.getString4()[0].length() > 0)
+				if (findSearch.getString4()[0].length() > 0 && findSearch.getString4()[4].length() > 0)
 					text(findSearch.getString4()[0] + ", "
 							+ city.values()[Integer.parseInt(findSearch.getString4()[4])], width / 4, 350);
 			}
