@@ -13,12 +13,12 @@ public class User {
 	private int[] eps; // List of episodes watched per ANIME corresponding to animeList
 	private double[] scores; // List of scores given by user per ANIME corresponding to animeList
 
-	private String[] friends = new String[200]; // Users accepted friends
+	private User[] friends = new User[200]; // Users accepted friends
 
 	private int friendCount = 0; // Keeps tracks of how many friends are in "friends
 
 	private User[] potMat = new User[1000]; // Randomly filled potential mates
-	private int popMatCount = 0;
+	private int potMatCount = 0;
 
 	private int location;
 
@@ -37,21 +37,26 @@ public class User {
 	public void swipe(boolean verdict) {
 
 		if (verdict) {
-
-			this.friends[this.friendCount] = this.potMat[this.popMatCount].getUser();
+			this.friends[this.friendCount] = this.potMat[this.potMatCount];
 
 			this.friendCount++;
-			this.popMatCount++;
+			this.potMatCount++;
 		}
 
 		else {
-			this.popMatCount++;
+			this.potMatCount++;
+		}
+	}
+
+	public void fillPotentialTest(User[] users) {
+		for (int i = 0; i < users.length; i++) {
+			this.potMat[i] = users[i];
 		}
 	}
 
 	public void fillPotential() throws SQLException, IOException {
 
-		this.popMatCount = 0;
+		this.potMatCount = 0;
 
 		for (int i = 0; i < this.potMat.length; i++) {
 
@@ -82,7 +87,7 @@ public class User {
 
 			this.potMat[i] = new User(userNameRet, animeList, eps, scores, location);
 		}
-		sort();
+		sortPotMat();
 	}
 
 	private double compareUser(User that) throws IOException{
@@ -107,7 +112,7 @@ public class User {
 		return Math.abs(totalDifference);
 	}
 
-	private void sort() throws IOException{
+	private void sortPotMat() throws IOException{
 
 		// Trying to sort potMat by the scores received by compareUser
 
@@ -131,7 +136,7 @@ public class User {
 		return this.username; // Returns user name
 	}
 
-	public String[] getFriends() {
+	public User[] getFriends() {
 		return this.friends; // Returns friends list
 	}
 
@@ -149,6 +154,10 @@ public class User {
 
 	public double[] getScores() {
 		return this.scores; // Returns a list of scores corresponding to animes in anime list
+	}
+
+	public User getPotMatUser() {
+		return this.potMat[this.potMatCount];
 	}
 
 	public User[] getPotMat() {
@@ -169,7 +178,7 @@ public class User {
 
 		yo.fillPotential();
 
-		String[] hello = yo.getFriends();
+		User[] hello = yo.getFriends();
 
 		yo.swipe(true);
 
