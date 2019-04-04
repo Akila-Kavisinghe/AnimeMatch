@@ -1,5 +1,8 @@
 package DataAlloc;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -19,6 +22,11 @@ public class UsingProcessing extends PApplet {
 	PImage[] profilePictures = new PImage[5];
 	Random rand = new Random();
 	int random = rand.nextInt(4);
+	
+	boolean storyCheck;
+	int flipper = 1;
+	
+	String[] storyString;
 
 	public static void main(String[] args) {
 		PApplet.main("DataAlloc.UsingProcessing");
@@ -61,13 +69,16 @@ public class UsingProcessing extends PApplet {
 		User billy = new User("billy", insAnimes1, insEps1, insScores1, 10);
 
 		User[] users = { bobby, eric, oleg, billy };
+
+//		Akila.fillPotential();
+
 		background(255);
 
-		loading_screen = loadImage("loading_screen.jpg");
-		loading_screen.resize(width, height);
-		image(loading_screen, 0, 0);
-		
-		delay(7000);
+//		loading_screen = loadImage("loading_screen.jpg");
+//		loading_screen.resize(width, height);
+//		image(loading_screen, 0, 0);
+//
+//		delay(7000);
 
 		/* IMAGE LOADING */
 		login_screen = loadImage("logo_anime.png");
@@ -82,7 +93,7 @@ public class UsingProcessing extends PApplet {
 
 		main_bar = loadImage("main_bar.jpg");
 		main_bar.resize(width, 52);
-		
+
 		talk_screen = loadImage("chat_room.jpg");
 		talk_screen.resize(width, height);
 
@@ -94,6 +105,9 @@ public class UsingProcessing extends PApplet {
 			profilePictures[i] = loadImage("profile" + (i + 1) + ".jpg");
 			profilePictures[i].resize(220, 220);
 		}
+		
+		
+		storyString = story().split(",");
 	}
 
 	private void login() {
@@ -123,17 +137,30 @@ public class UsingProcessing extends PApplet {
 			}
 			if (currentScreen == 1) {
 				if (mouseX < 200 && mouseY > 52) {
+					storyString = story().split(",");
 					System.out.println(Akila.getPotMatUser().getUser());
 					Akila.swipe(false);
 					random = rand.nextInt(4);
 				}
 				if (mouseX > width - 200 && mouseY > 52) {
+					storyString = story().split(",");
 					System.out.println("Like!");
 					Akila.swipe(true);
 					random = rand.nextInt(4);
 				}
+
+				if (210 < mouseX && mouseX < width - 210 && mouseY > 52) {
+					if(flipper == 0) {
+						storyCheck = true;
+						flipper = 1;
+					}
+					else {
+						storyCheck = false;
+						flipper = 0;
+					}
+					
+				}
 			}
-			
 			if (currentScreen == 2) {
 				if (mouseX < 200 && mouseY > 52) {
 					search();
@@ -159,7 +186,7 @@ public class UsingProcessing extends PApplet {
 
 			String userName = potMatUser.getUser();
 			String userAnimeList = potMatUser.getAnimeList()[0] + ", " + potMatUser.getAnimeList()[1] + ", "
-					+ potMatUser.getAnimeList()[2];
+					+ potMatUser.getAnimeList()[2]; // WE NEED TO GET THE ANIME NAME INSTEAD OF SHOWING THE ID
 			String userCity = "" + city.values()[potMatUser.getLocation()];
 
 			textSize(24);
@@ -169,68 +196,135 @@ public class UsingProcessing extends PApplet {
 			text(userAnimeList, width / 2, height - 96);
 			text(userCity, width / 2, height - 72);
 			image(profilePictures[random], width / 2, height / 2 - 35);
+			if (storyCheck) {
+				storyDisplay();
+			}
 		} else if (currentScreen == 2) {
 			image(friends_list, width / 2, height / 2 + 26);
 			image(main_bar, width / 2, 26);
-			
+
 		} else if (currentScreen == 3) {
 			image(talk_screen, width / 2, height / 2);
 			image(main_bar, width / 2, 26);
 		}
 	}
-	
+
 	public void search() {
 		SearchBar findSearch = new SearchBar(Akila.getFriends());
 		System.out.println("Search for someone: ");
 		String searcher = input.next();
 		findSearch.search(searcher);
 		findSearch.populate();
-		
+
 		System.out.println("\nSearch Results");
-		
+
 		for (int i = 0; i < findSearch.getString1().length; i++) {
-			if(findSearch.getString1()[i].equals(" ")){
+			if (findSearch.getString1()[i].equals(" ")) {
 				break;
-			}
-			else {
+			} else {
 				System.out.print(findSearch.getString1()[i] + "|| ");
 			}
 		}
-		
+
 		System.out.println();
-		
+
 		for (int i = 0; i < findSearch.getString2().length; i++) {
-			if(findSearch.getString2()[i].equals(" ")){
+			if (findSearch.getString2()[i].equals(" ")) {
 				break;
-			}
-			else {
+			} else {
 				System.out.print(findSearch.getString2()[i] + "|| ");
 			}
 		}
-		
+
 		System.out.println();
-		
+
 		for (int i = 0; i < findSearch.getString3().length; i++) {
-			if(findSearch.getString3()[i].equals(" ")){
+			if (findSearch.getString3()[i].equals(" ")) {
 				break;
-			}
-			else {
+			} else {
 				System.out.print(findSearch.getString3()[i] + "|| ");
 			}
 		}
-		
+
 		System.out.println();
-		
+
 		for (int i = 0; i < findSearch.getString4().length; i++) {
-			if(findSearch.getString4()[i].equals(" ")){
+			if (findSearch.getString4()[i].equals(" ")) {
 				break;
-			}
-			else {
+			} else {
 				System.out.print(findSearch.getString4()[i] + "|| ");
 			}
 		}
-		
+
 		System.out.println();
 	}
+
+	public String story() {
+		String[] NounList = new String[10];
+		String[] AnimeList = new String[10];
+
+		try {
+			FileReader file = new FileReader("Data//Nouns.txt");
+			BufferedReader bufferfile = new BufferedReader(file);
+			String string;
+			string = bufferfile.readLine();
+			int count = 0;
+			while ((string = bufferfile.readLine()) != null) {
+				NounList[count] = string;
+				count++;
+			}
+			bufferfile.close();
+
+		} catch (IOException e) {
+			System.out.println("File not found");
+		}
+
+		try {
+			FileReader file = new FileReader("Data//anime.txt");
+			BufferedReader bufferfile = new BufferedReader(file);
+			String string;
+			string = bufferfile.readLine();
+			int count = 0;
+			while ((string = bufferfile.readLine()) != null) {
+				AnimeList[count] = string;
+				count++;
+			}
+			bufferfile.close();
+
+		} catch (IOException e) {
+			System.out.println("File not found");
+		}
+
+		double randomNoun = Math.random();
+		randomNoun = randomNoun * 10;
+		int randNoun = (int) randomNoun;
+
+		double randomAnime = Math.random();
+		randomAnime = randomAnime * 10;
+		int randAnime = (int) randomAnime;
+
+		String noun = NounList[randNoun];
+		String anime = AnimeList[randAnime];
+		String name = Akila.getPotMatUser().getUser();
+		
+		
+		return "Hi my name is " + name + ",I like " + noun + ".," + "My favorite anime is " + anime + ".";
+		
+
+
+//		System.out.print("Hi my name is " + name + " and I like " + noun + ". My favorite anime is " + anime + ".");
+	}
 	
+	public void storyDisplay(){
+		fill(0);
+		rect(width / 2, height / 2 - 35, 250, 250);
+		
+		textAlign(CENTER);
+		fill(255);
+		text(storyString[0], width/2, height/2-24);
+		text(storyString[1], width/2, height/2);
+		text(storyString[2], width/2, height/2+24);
+		
+	}
+
 }
