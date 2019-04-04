@@ -11,19 +11,14 @@ import processing.core.PImage;
 
 public class UsingProcessing extends PApplet {
 
-	PImage main_menu, main_bar, friends_list, login_screen, loading_screen;
-	int currentScreen = 1;
+	PImage main_menu, main_bar, friends_list, login_screen, loading_screen, talk_screen;
+	int currentScreen = 0;
 	LoginAccount login = new LoginAccount("Data/userAndPass.txt");
 	Scanner input = new Scanner(System.in);
 	User Akila;
 	PImage[] profilePictures = new PImage[5];
 	Random rand = new Random();
 	int random = rand.nextInt(4);
-
-//	int loginScreen = 0;
-//	int searchScreen = 1;
-//	int friendsScreen = 2;
-//	int locationScreen = 3;
 
 	public static void main(String[] args) {
 		PApplet.main("DataAlloc.UsingProcessing");
@@ -50,7 +45,7 @@ public class UsingProcessing extends PApplet {
 		int[] eps11 = { 1, 2, 4, 3, 5 };
 		double[] scores11 = { 2.0, 6.0, 3.1, 5.0, 1.5 };
 
-		User eric = new User("yehhh", animeList11, eps11, scores11, 4);
+		User eric = new User("behhh", animeList11, eps11, scores11, 4);
 
 		Integer[] insAnimes = { 5, 2, 4, 3, 1 };
 		int[] insEps = { 12, 234, 97, 82, 72 };
@@ -66,27 +61,32 @@ public class UsingProcessing extends PApplet {
 
 		User[] users = { bobby, eric, oleg, billy };
 		background(255);
-//		loading_screen = loadImage("loading_screen.jpg");
-//		loading_screen.resize(width, height);
-//		background(loading_screen);
-//		loop();
+
+		loading_screen = loadImage("loading_screen.jpg");
+		loading_screen.resize(width, height);
+		image(loading_screen, 0, 0);
+		
+		delay(7000);
 
 		/* IMAGE LOADING */
 		login_screen = loadImage("logo_anime.png");
 		login_screen.resize(width / 2 + 20, height / 2);
 
+		background(255);
 		imageMode(CENTER);
 		image(login_screen, width / 2, height / 2);
-//		login();
 
 		main_menu = loadImage("main_menu.jpg");
 		main_menu.resize(width, height);
 
 		main_bar = loadImage("main_bar.jpg");
 		main_bar.resize(width, 52);
+		
+		talk_screen = loadImage("chat_room.jpg");
+		talk_screen.resize(width, height);
 
 		friends_list = loadImage("friends_list.jpg");
-		friends_list.resize(width, height);
+		friends_list.resize(width, height - 52);
 		Akila.fillPotentialTest(users);
 
 		for (int i = 0; i < 4; i++) {
@@ -105,7 +105,6 @@ public class UsingProcessing extends PApplet {
 			if (login.check(username, password)) {
 				validpass = true;
 				currentScreen = 1;
-				input.close();
 			}
 		}
 	}
@@ -133,14 +132,16 @@ public class UsingProcessing extends PApplet {
 					random = rand.nextInt(4);
 				}
 			}
+			
+			if (currentScreen == 2) {
+				if (mouseX < 200 && mouseY > 52) {
+					search();
+				}
+			}
 		}
 	}
 
 	public void draw() {
-//		if (currentScreen == -1) {
-//			background(loading_screen);
-//			currentScreen = 0;
-//		}
 		if (currentScreen == 0) {
 			image(login_screen, width / 2, height / 2);
 			login();
@@ -168,16 +169,67 @@ public class UsingProcessing extends PApplet {
 			text(userCity, width / 2, height - 72);
 			image(profilePictures[random], width / 2, height / 2 - 35);
 		} else if (currentScreen == 2) {
-			image(friends_list, width / 2, height / 2);
+			image(friends_list, width / 2, height / 2 + 26);
 			image(main_bar, width / 2, 26);
-			SearchBar findSearch = new SearchBar(Akila.getFriends());
-			System.out.println("Search for someone: ");
-			String searcher = input.next();
-			findSearch.search(searcher);
-			findSearch.populate();
+			
 		} else if (currentScreen == 3) {
-			image(friends_list, width / 2, height / 2);
+			image(talk_screen, width / 2, height / 2);
 			image(main_bar, width / 2, 26);
 		}
 	}
+	
+	public void search() {
+		SearchBar findSearch = new SearchBar(Akila.getFriends());
+		System.out.println("Search for someone: ");
+		String searcher = input.next();
+		findSearch.search(searcher);
+		findSearch.populate();
+		
+		System.out.println("\nSearch Results");
+		
+		for (int i = 0; i < findSearch.getString1().length; i++) {
+			if(findSearch.getString1()[i].equals(" ")){
+				break;
+			}
+			else {
+				System.out.print(findSearch.getString1()[i] + "|| ");
+			}
+		}
+		
+		System.out.println();
+		
+		for (int i = 0; i < findSearch.getString2().length; i++) {
+			if(findSearch.getString2()[i].equals(" ")){
+				break;
+			}
+			else {
+				System.out.print(findSearch.getString2()[i] + "|| ");
+			}
+		}
+		
+		System.out.println();
+		
+		for (int i = 0; i < findSearch.getString3().length; i++) {
+			if(findSearch.getString3()[i].equals(" ")){
+				break;
+			}
+			else {
+				System.out.print(findSearch.getString3()[i] + "|| ");
+			}
+		}
+		
+		System.out.println();
+		
+		for (int i = 0; i < findSearch.getString4().length; i++) {
+			if(findSearch.getString4()[i].equals(" ")){
+				break;
+			}
+			else {
+				System.out.print(findSearch.getString4()[i] + "|| ");
+			}
+		}
+		
+		System.out.println();
+	}
+	
 }

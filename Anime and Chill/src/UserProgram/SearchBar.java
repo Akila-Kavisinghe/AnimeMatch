@@ -1,8 +1,10 @@
 package UserProgram;
 
+import java.util.ArrayList;
+
 public class SearchBar {
 
-	private User[] allLikedUsers;
+	private ArrayList<User> allLikedUsers;
 	private User[] results = new User[4];
 
 	private String[] string1 = new String[5];
@@ -10,16 +12,9 @@ public class SearchBar {
 	private String[] string3 = new String[5];
 	private String[] string4 = new String[5];
 
-	public SearchBar(User[] allLikedUsers) {
+	public SearchBar(ArrayList<User> allLikedUsers) {
 
 		this.allLikedUsers = allLikedUsers;
-	}
-
-	public SearchBar() {
-
-		User[] init = {};
-
-		this.allLikedUsers = init;
 	}
 
 	public void search(String searchString) {
@@ -28,10 +23,10 @@ public class SearchBar {
 
 		int counter = 0;
 
-		for (int i = 0; i < this.allLikedUsers.length; i++) {
+		for (int i = 0; i < this.allLikedUsers.size(); i++) {
 
-			if (isStart(searchString, this.allLikedUsers[i].getUser())) {
-				this.results[counter] = this.allLikedUsers[i];
+			if (isStart(searchString, this.allLikedUsers.get(i).getUser())) {
+				this.results[counter] = this.allLikedUsers.get(i);
 				counter++;
 			}
 		}
@@ -158,7 +153,12 @@ public class SearchBar {
 
 		User billy = new User("billy", animeList3, eps3, scores3, 10);
 
-		User[] usersss = { billy, oleg, eric, akila };
+		ArrayList <User> usersss = new ArrayList<User>();
+		
+		usersss.add(billy);
+		usersss.add(oleg);
+		usersss.add(eric);
+		usersss.add(akila);
 
 		SearchBar cool = new SearchBar(usersss);
 

@@ -2,6 +2,7 @@ package UserProgram;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import DataAlloc.DataManipulate;
 import Graphs.ShortPath;
@@ -13,7 +14,7 @@ public class User {
 	private int[] eps; // List of episodes watched per ANIME corresponding to animeList
 	private double[] scores; // List of scores given by user per ANIME corresponding to animeList
 
-	private User[] friends = new User[200]; // Users accepted friends
+	private ArrayList <User> friends = new ArrayList<User>(); // Users accepted friends
 
 	private int friendCount = 0; // Keeps tracks of how many friends are in "friends
 
@@ -37,7 +38,7 @@ public class User {
 	public void swipe(boolean verdict) {
 
 		if (verdict) {
-			this.friends[this.friendCount] = this.potMat[this.potMatCount];
+			this.friends.add(this.potMat[this.potMatCount]);
 
 			this.friendCount++;
 			this.potMatCount++;
@@ -109,7 +110,7 @@ public class User {
 		
 		double compate = totalDifference / count + ShortPath.path(this.getLocation(), that.getLocation());
 		
-		return Math.abs(totalDifference);
+		return compate;
 	}
 
 	private void sortPotMat() throws IOException{
@@ -136,7 +137,7 @@ public class User {
 		return this.username; // Returns user name
 	}
 
-	public User[] getFriends() {
+	public ArrayList<User> getFriends() {
 		return this.friends; // Returns friends list
 	}
 
@@ -178,13 +179,13 @@ public class User {
 
 		yo.fillPotential();
 
-		User[] hello = yo.getFriends();
+		ArrayList<User> hello = yo.getFriends();
 
 		yo.swipe(true);
 
-		for (int i = 0; i < hello.length; i++) {
-			if (hello[i] != null)
-				System.out.println(hello[i]);
+		for (int i = 0; i < hello.size(); i++) {
+			if (hello.get(i) != null)
+				System.out.println(hello.get(i));
 		}
 
 	}
