@@ -29,6 +29,7 @@ public class UsingProcessing extends PApplet {
 //		fullScreen();
 	}
 
+	
 	public void setup() {
 		Integer[] animeList1 = { 1, 2, 3, 4, 5 };
 		int[] eps1 = { 1, 2, 3, 4, 5 };

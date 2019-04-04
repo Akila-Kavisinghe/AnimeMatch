@@ -4,15 +4,58 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Random;
+
+import UserProgram.User;
 
 public class AnimeData {
 
+	public static void fuck() throws SQLException{
+		
+		
+		ArrayList<String> allmates= new ArrayList<String>();
+		
+		for(int i = 0; i < strthisanimes.length; i++) {
+			String[] mates = AnimeData.retrieve_data(strthisanimes[i], "users").split(" ");
+			for(int j = 0; j < mates.length; j++)
+				allmates.add(mates[i]);
+		}
+		
+		String[] strmates = new String[allmates.size()];
+		
+		for(int j = 0; j< allmates.size(); j++) {
+			strmates[j] = allmates.get(j);
+			String[] strthisanimes = DataManipulate.retrieve_data(strmates[j], "animeID").split(" ");
+			String[] strthiseps = DataManipulate.retrieve_data(strmates[j], "episodes").split(" ");
+			String[] strthisscore = DataManipulate.retrieve_data(strmates[j], "score").split(" ");
+			
+			int n = strthisanimes.length;
+			
+			int[] thiseps = new int[n];
+			double[] thisscore = new double[n];
+			
+			for(int i = 0; i < strthisanimes.length; i++) {
+				thiseps[i] = Integer.parseInt(strthiseps[i]);
+				thisscore[i] = Double.parseDouble(strthisscore[i]);
+			}
+			
+			String thisloc = DataManipulate.retrieve_data(strmates[j], "location");
+			this.potMat[i] = new User(strmates[j], strthisanimes, thiseps, thisscore, Integer.parseInt(thisloc));
+			
+		}
+		sortPotMat()
+	
+	}
 	public static void main(String[] args) throws SQLException {
-		String user = "Akila";
-		String ID = "100";
-		add_data(ID, user);
-		show_data("users");
+		
+		String[] allusers = DataManipulate.graball_data().split(" ");
+		for(int i = 0; i < allusers.length; i++) {
+			String[] animes = DataManipulate.retrieve_data(allusers[i], "animeID").split(" ");
+			for(int j = 0; j < animes.length; j++) {
+				add_data(animes[j], allusers[i]);
+			}
+		}
 	}
 	
 	public static String retrieve_data(String animeID, String field) throws SQLException {
@@ -41,6 +84,7 @@ public class AnimeData {
 		connection.close();
 		return entry;
 	}
+	
 	
 	public static String random_data() throws SQLException {
 		DB_Connection obj_DB_Connection = new DB_Connection();

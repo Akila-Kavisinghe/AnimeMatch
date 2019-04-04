@@ -46,6 +46,33 @@ public class DataManipulate {
 		return entry;
 	}
 	
+	public static String graball_data() throws SQLException {
+		DB_Connection obj_DB_Connection = new DB_Connection();
+		Connection connection = null;
+		connection = obj_DB_Connection.get_connection();
+		
+		PreparedStatement ps = null;
+		try {
+			String query = "select * from users";
+			ps = connection.prepareStatement(query);
+			ResultSet rs = ps.executeQuery();
+			
+			String output = "";
+			
+			while(rs.next()) {
+				output += rs.getString("username") + " ";
+			}
+			connection.close();
+			return output;
+		}
+		
+		catch(Exception e) {
+			System.out.println(e);
+			connection.close();
+			return "";
+		}
+	}
+	
 	public static String random_data() throws SQLException {
 		DB_Connection obj_DB_Connection = new DB_Connection();
 		Connection connection = null;
