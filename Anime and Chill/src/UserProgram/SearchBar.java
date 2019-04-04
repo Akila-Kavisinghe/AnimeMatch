@@ -7,10 +7,10 @@ public class SearchBar {
 	private ArrayList<User> allLikedUsers;
 	private User[] results = new User[4];
 
-	private String[] string1 = new String[5];
-	private String[] string2 = new String[5];
-	private String[] string3 = new String[5];
-	private String[] string4 = new String[5];
+	private String[] string1 = {"", "", "", "", ""};
+	private String[] string2 = {"", "", "", "", ""};
+	private String[] string3 = {"", "", "", "", ""};
+	private String[] string4 = {"", "", "", "", ""};
 
 	public SearchBar(ArrayList<User> allLikedUsers) {
 
@@ -67,11 +67,11 @@ public class SearchBar {
 			this.string2[4] = Integer.toString(results[1].getLocation());
 			; // Location
 		} catch (NullPointerException e) {
-			this.string2[0] = " ";
-			this.string2[1] = " ";
-			this.string2[2] = " ";
-			this.string2[3] = " ";
-			this.string2[4] = " ";
+			this.string2[0] = "";
+			this.string2[1] = "";
+			this.string2[2] = "";
+			this.string2[3] = "";
+			this.string2[4] = "";
 		}
 
 		try {
@@ -85,11 +85,11 @@ public class SearchBar {
 			this.string3[4] =  Integer.toString(results[2].getLocation());
 			; // Location
 		} catch (NullPointerException e) {
-			this.string3[0] = " ";
-			this.string3[1] = " ";
-			this.string3[2] = " ";
-			this.string3[3] = " ";
-			this.string3[4] = " ";
+			this.string3[0] = "";
+			this.string3[1] = "";
+			this.string3[2] = "";
+			this.string3[3] = "";
+			this.string3[4] = "";
 		}
 
 		try {
@@ -103,11 +103,11 @@ public class SearchBar {
 			this.string4[4] = Integer.toString(results[3].getLocation());
 			; // Location
 		} catch (NullPointerException e) {
-			this.string4[0] = " ";
-			this.string4[1] = " ";
-			this.string4[2] = " ";
-			this.string4[3] = " ";
-			this.string4[4] = " ";
+			this.string4[0] = "";
+			this.string4[1] = "";
+			this.string4[2] = "";
+			this.string4[3] = "";
+			this.string4[4] = "";
 		}
 	}
 

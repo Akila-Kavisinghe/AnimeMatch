@@ -15,7 +15,7 @@ import processing.core.PImage;
 public class UsingProcessing extends PApplet {
 
 	PImage main_menu, main_bar, friends_list, login_screen, loading_screen, talk_screen;
-	int currentScreen = 2;
+	int currentScreen = 0;
 	LoginAccount login = new LoginAccount("Data/userAndPass.txt");
 	Scanner input = new Scanner(System.in);
 	User Akila;
@@ -30,6 +30,8 @@ public class UsingProcessing extends PApplet {
 	String password = "";
 	String hiddenPassword = "";
 	String searchName = "";
+	boolean searched = false;
+	SearchBar findSearch;
 
 	String[] storyString;
 
@@ -43,30 +45,30 @@ public class UsingProcessing extends PApplet {
 	}
 
 	public void setup() {
-		Integer[] animeList1 = { 1, 2, 3, 4, 5 };
+		String[] animeList1 = { "1", "2", "3", "4", "5" };
 		int[] eps1 = { 1, 2, 3, 4, 5 };
 		double[] scores1 = { 1.0, 2.0, 3.0, 4.0, 5.0 };
 		Akila = new User("Akila Kavisinghe", animeList1, eps1, scores1, 12);
 
-		Integer[] animeList = { 5, 1, 2, 3, 4 };
+		String[] animeList = { "5", "1", "2", "3", "4" };
 		int[] eps = { 1, 2, 4, 3, 2 };
 		double[] scores = { 5.0, 2.0, 3.0, 1.0, 7.0 };
 
 		User bobby = new User("bobby", animeList, eps, scores, 2);
 
-		Integer[] animeList11 = { 5, 1, 2, 4, 5 };
+		String[] animeList11 = { "5", "1", "2", "4", "5" };
 		int[] eps11 = { 1, 2, 4, 3, 5 };
 		double[] scores11 = { 2.0, 6.0, 3.1, 5.0, 1.5 };
 
 		User eric = new User("behhh", animeList11, eps11, scores11, 4);
 
-		Integer[] insAnimes = { 5, 2, 4, 3, 1 };
+		String[] insAnimes = { "5", "2", "4", "3", "1" };
 		int[] insEps = { 12, 234, 97, 82, 72 };
 		double[] insScores = { 8.3, 9.4, 4.2, 9.5, 3.7 };
 
 		User oleg = new User("oleg", insAnimes, insEps, insScores, 7);
 
-		Integer[] insAnimes1 = { 5, 2, 4, 3, 1 };
+		String[] insAnimes1 = { "5", "2", "4", "3", "1" };
 		int[] insEps1 = { 672, 40, 273, 38, 38 };
 		double[] insScores1 = { 9.2, 8.5, 3.7, 7.9, 8.2 };
 
@@ -127,7 +129,7 @@ public class UsingProcessing extends PApplet {
 
 			else if (key > '0' && key < 'z' && flipper1 == 0) {
 				password += key;
-				hiddenPassword += "•";
+				hiddenPassword += "*";
 			}
 
 			if (key == BACKSPACE && flipper1 == 1 && username.length() > 0) {
@@ -148,21 +150,22 @@ public class UsingProcessing extends PApplet {
 					hiddenPassword = "";
 					flipper1 = 1;
 					strokeWeight(0);
-					fill(255,0, 0);
+					fill(255, 0, 0);
 					textSize(12);
-					text("Incorrect Username/Password", width/2-78, 390);
+					text("Incorrect Username/Password", width / 2 - 78, 390);
 				}
 			}
 		}
-		
+
 		if (currentScreen == 2) {
-			if (key > '0' && key < 'z' && flipper1 == 1) {
+			if (key > '0' && key < 'z') {
 				searchName += key;
-				System.out.println(searchName);
+				search(searchName);
 			}
 
 			if (key == BACKSPACE && searchName.length() > 0) {
 				searchName = searchName.substring(0, searchName.length() - 1);
+				search(searchName);
 			}
 
 			if (key == ENTER) {
@@ -210,19 +213,19 @@ public class UsingProcessing extends PApplet {
 
 	public void draw() {
 		if (currentScreen == 0) {
-			
+
 			fill(255);
 			stroke(0);
 			strokeWeight(2);
 			rect(width / 2 - 100, 300, 200, 25, 100);
 			rect(width / 2 - 100, 345, 200, 25, 100);
-			
+
 			textAlign(LEFT);
 			fill(0);
 			strokeWeight(1);
 			textSize(17);
-			text(username, width/2-85, 318);
-			text(hiddenPassword, width/2-85, 363);
+			text(username, width / 2 - 85, 318);
+			text(hiddenPassword, width / 2 - 85, 363);
 			textSize(20);
 
 		} else if (currentScreen == 1) {
@@ -240,7 +243,7 @@ public class UsingProcessing extends PApplet {
 			String userAnimeList = potMatUser.getAnimeList()[0] + ", " + potMatUser.getAnimeList()[1] + ", "
 					+ potMatUser.getAnimeList()[2]; // WE NEED TO GET THE ANIME NAME INSTEAD OF SHOWING THE ID
 			String userCity = "" + city.values()[potMatUser.getLocation()];
-			
+
 			userCity = userCity.replace("_", " ");
 
 			textSize(24);
@@ -256,12 +259,26 @@ public class UsingProcessing extends PApplet {
 		} else if (currentScreen == 2) {
 			image(friends_list, width / 2, height / 2 + 26);
 			image(main_bar, width / 2, 26);
-			
+
 			textAlign(LEFT);
 			fill(0);
-			textSize(23);
-			text(searchName, width/4, 100);
+			textSize(24);
+			text(searchName, width / 4, 100);
 
+			if (searched) {
+				if (findSearch.getString1()[0].length() > 0)
+					text(findSearch.getString1()[0] + ", "
+							+ city.values()[Integer.parseInt(findSearch.getString1()[4])], width / 4, 200);
+				if (findSearch.getString2()[0].length() > 0)
+					text(findSearch.getString2()[0] + ", "
+							+ city.values()[Integer.parseInt(findSearch.getString2()[4])], width / 4, 250);
+				if (findSearch.getString3()[0].length() > 0)
+					text(findSearch.getString3()[0] + ", "
+							+ city.values()[Integer.parseInt(findSearch.getString3()[4])], width / 4, 300);
+				if (findSearch.getString4()[0].length() > 0)
+					text(findSearch.getString4()[0] + ", "
+							+ city.values()[Integer.parseInt(findSearch.getString4()[4])], width / 4, 350);
+			}
 		} else if (currentScreen == 3) {
 			image(talk_screen, width / 2, height / 2);
 			image(main_bar, width / 2, 26);
@@ -269,57 +286,53 @@ public class UsingProcessing extends PApplet {
 	}
 
 	public void search(String input) {
-		SearchBar findSearch = new SearchBar(Akila.getFriends());
-		
+		findSearch = new SearchBar(Akila.getFriends());
+
 		findSearch.search(input);
 		findSearch.populate();
+		searched = true;
 
-		System.out.println("\nSearch Results");
-		
-		if(findSearch.getString1()[0].length() == 0 && findSearch.getString2()[0].length() == 0 && findSearch.getString3()[0].length() == 0 && findSearch.getString4()[0].length() == 0) {
-			
-			return;
-		}
+//		System.out.println("\nSearch Results");
 
-		for (int i = 0; i < findSearch.getString1().length; i++) {
-			if (findSearch.getString1()[i].equals(" ")) {
-				break;
-			} else {
-				System.out.print(findSearch.getString1()[i] + "|| ");
-			}
-		}
-
-		System.out.println();
-
-		for (int i = 0; i < findSearch.getString2().length; i++) {
-			if (findSearch.getString2()[i].equals(" ")) {
-				break;
-			} else {
-				System.out.print(findSearch.getString2()[i] + "|| ");
-			}
-		}
-
-		System.out.println();
-
-		for (int i = 0; i < findSearch.getString3().length; i++) {
-			if (findSearch.getString3()[i].equals(" ")) {
-				break;
-			} else {
-				System.out.print(findSearch.getString3()[i] + "|| ");
-			}
-		}
-
-		System.out.println();
-
-		for (int i = 0; i < findSearch.getString4().length; i++) {
-			if (findSearch.getString4()[i].equals(" ")) {
-				break;
-			} else {
-				System.out.print(findSearch.getString4()[i] + "|| ");
-			}
-		}
-
-		System.out.println();
+//		for (int i = 0; i < findSearch.getString1().length; i++) {
+//			if (findSearch.getString1()[i].equals(" ")) {
+//				break;
+//			} else {
+//				System.out.print(findSearch.getString1()[i] + "|| ");
+//			}
+//		}
+//
+//		System.out.println();
+//
+//		for (int i = 0; i < findSearch.getString2().length; i++) {
+//			if (findSearch.getString2()[i].equals(" ")) {
+//				break;
+//			} else {
+//				System.out.print(findSearch.getString2()[i] + "|| ");
+//			}
+//		}
+//
+//		System.out.println();
+//
+//		for (int i = 0; i < findSearch.getString3().length; i++) {
+//			if (findSearch.getString3()[i].equals(" ")) {
+//				break;
+//			} else {
+//				System.out.print(findSearch.getString3()[i] + "|| ");
+//			}
+//		}
+//
+//		System.out.println();
+//
+//		for (int i = 0; i < findSearch.getString4().length; i++) {
+//			if (findSearch.getString4()[i].equals(" ")) {
+//				break;
+//			} else {
+//				System.out.print(findSearch.getString4()[i] + "|| ");
+//			}
+//		}
+//
+//		System.out.println();
 	}
 
 	public String story() {
@@ -371,8 +384,6 @@ public class UsingProcessing extends PApplet {
 		String name = Akila.getPotMatUser().getUser();
 
 		return "Hi my name is " + name + ",I like " + noun + ".," + "My favorite anime is " + anime + ".";
-
-//		System.out.print("Hi my name is " + name + " and I like " + noun + ". My favorite anime is " + anime + ".");
 	}
 
 	public void storyDisplay() {
