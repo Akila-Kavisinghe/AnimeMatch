@@ -10,8 +10,8 @@ import java.util.Random;
 
 public class PopulateData {
 	public static void main(String[] args) throws IOException, SQLException{
-		//populateUsers();
-		DataManipulate.show_data("location");
+		populateUsers();
+		//DataManipulate.show_data("location");
 	}
 	
 	public static String strip(String str) {
@@ -19,13 +19,14 @@ public class PopulateData {
 	}
 	
 	public static void populateUsers() throws IOException, SQLException{
-		File file = new File("Data/test.csv");
+		File file = new File("Data/UserAnimeList.csv");
 		BufferedReader buff = new BufferedReader(new FileReader(file));
 		FilterFunction f = new FilterFunction();
 		
 		String line = null;
 		
 		//line = buff.readLine();
+		line = f.filter();
 		line = f.filter();
 	
 		String[] store = line.split(",", -1);
@@ -50,10 +51,6 @@ public class PopulateData {
 		int counter = 0;
 		
 		while((line = f.filter()) != null) {
-			counter++;
-			
-			if (counter >= 5000)
-				break;
 			
 			store = line.split(",", -1);
 			count = 0;
@@ -80,6 +77,9 @@ public class PopulateData {
 			}
 				
 			else if (!current.equals(username)) {
+				counter++;
+				if (counter >= 100000)
+					break;
 				DataManipulate.add_data(current, currentanimeID, currentepisodes, currentscore, loc);
 				currentanimeID = animeID; 
 				currentscore = score;

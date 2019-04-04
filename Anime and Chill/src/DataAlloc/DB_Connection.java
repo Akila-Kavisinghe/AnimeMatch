@@ -19,7 +19,6 @@ public class DB_Connection {
 			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/AnimeUsers?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC", "myuser", "anime&Chill");
 		}
 		catch(Exception e) {
-			System.out.println("hi");
 			System.out.println(e);
 		}
 		return connection;
