@@ -4,13 +4,14 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import DataAlloc.AnimeData;
 import DataAlloc.DataManipulate;
 import Graphs.ShortPath;
 
 public class User {
 
 	private String username; // User name
-	private Integer[] animeList; // List of ANIMES watched by user
+	private String[] animeList; // List of ANIMES watched by user
 	private int[] eps; // List of episodes watched per ANIME corresponding to animeList
 	private double[] scores; // List of scores given by user per ANIME corresponding to animeList
 
@@ -23,7 +24,7 @@ public class User {
 
 	private int location;
 
-	public User(String username, Integer[] animeList, int[] eps, double[] scores, int location) {
+	public User(String username, String[] animeList, int[] eps, double[] scores, int location) {
 		this.username = username;
 		this.animeList = animeList;
 		this.eps = eps;
@@ -59,48 +60,83 @@ public class User {
 
 		this.potMatCount = 0;
 
-		for (int i = 0; i < this.potMat.length; i++) {
-
-			String userNameRet = DataManipulate.random_data();
-
-			String[] animeListStr = DataManipulate.retrieve_data(userNameRet, "animeID").split(" ");
-			Integer[] animeList = new Integer[animeListStr.length];
-
-			for (int j = 0; j < animeList.length; j++) {
-				animeList[j] = Integer.parseInt(animeListStr[j]);
+		ArrayList<String> allmates= new ArrayList<String>();
+		
+		for(int i = 0; i < this.animeList.length; i++) {
+			String[] mates = AnimeData.retrieve_data(this.animeList[i], "users").split(" ");
+			for(int j = 0; j < mates.length; j++) {
+				if(!(mates[i].equals(this.username)))
+					allmates.add(mates[i]);
 			}
-
-			String[] epsStr = DataManipulate.retrieve_data(userNameRet, "episodes").split(" ");
-			int[] eps = new int[epsStr.length];
-
-			for (int j = 0; j < eps.length; j++) {
-				eps[j] = Integer.parseInt(epsStr[j]);
+		}
+		
+		String[] strmates = new String[allmates.size()];
+		
+		for(int j = 0; j< allmates.size(); j++) {
+			strmates[j] = allmates.get(j);
+			String[] strthisanimes = DataManipulate.retrieve_data(strmates[j], "animeID").split(" ");
+			String[] strthiseps = DataManipulate.retrieve_data(strmates[j], "episodes").split(" ");
+			String[] strthisscore = DataManipulate.retrieve_data(strmates[j], "score").split(" ");
+			
+			int n = strthisanimes.length;
+			
+			int[] thiseps = new int[n];
+			double[] thisscore = new double[n];
+			
+			for(int i = 0; i < n; i++) {
+				thiseps[i] = Integer.parseInt(strthiseps[i]);
+				thisscore[i] = Double.parseDouble(strthisscore[i]);
 			}
-
-			String[] scoresStr = DataManipulate.retrieve_data(userNameRet, "episodes").split(" ");
-			double[] scores = new double[scoresStr.length];
-
-			for (int j = 0; j < scores.length; j++) {
-				scores[j] = Integer.parseInt(scoresStr[j]);
-			}
-
-			int location = Integer.parseInt(DataManipulate.retrieve_data(userNameRet, "location"));
-
-			this.potMat[i] = new User(userNameRet, animeList, eps, scores, location);
+			
+			String thisloc = DataManipulate.retrieve_data(strmates[j], "location");
+			this.potMat[j] = new User(strmates[j], strthisanimes, thiseps, thisscore, Integer.parseInt(thisloc));
+			
 		}
 		sortPotMat();
+		
+		
+//		for (int i = 0; i < this.potMat.length; i++) {
+//
+//			String userNameRet = DataManipulate.random_data();
+//
+//			String[] animeListStr = DataManipulate.retrieve_data(userNameRet, "animeID").split(" ");
+//			Integer[] animeList = new Integer[animeListStr.length];
+//
+//			for (int j = 0; j < animeList.length; j++) {
+//				animeList[j] = Integer.parseInt(animeListStr[j]);
+//			}
+//
+//			String[] epsStr = DataManipulate.retrieve_data(userNameRet, "episodes").split(" ");
+//			int[] eps = new int[epsStr.length];
+//
+//			for (int j = 0; j < eps.length; j++) {
+//				eps[j] = Integer.parseInt(epsStr[j]);
+//			}
+//
+//			String[] scoresStr = DataManipulate.retrieve_data(userNameRet, "episodes").split(" ");
+//			double[] scores = new double[scoresStr.length];
+//
+//			for (int j = 0; j < scores.length; j++) {
+//				scores[j] = Integer.parseInt(scoresStr[j]);
+//			}
+//
+//			int location = Integer.parseInt(DataManipulate.retrieve_data(userNameRet, "location"));
+//
+//			this.potMat[i] = new User(userNameRet, animeList, eps, scores, location);
+//		}
+//		sortPotMat();
 	}
 
 	private double compareUser(User that) throws IOException{
 
 		double totalDifference = 0.0;
-		Integer[] thatAnimeList = that.getAnimeList();
+		String[] thatAnimeList = that.getAnimeList();
 		double[] thatScores = that.getScores();
 		int count = 0;
 
 		for (int i = 0; i < this.animeList.length; i++) {
 			for (int j = 0; j < thatAnimeList.length; j++) {
-				if (this.animeList[i] == thatAnimeList[j]) {
+				if (this.animeList[i].equals(thatAnimeList[j])) {
 					//this computes the compatability score between the user and another user
 					totalDifference += Math.abs((this.scores[i] - thatScores[j]));
 					count++;
@@ -145,14 +181,14 @@ public class User {
 		return this.location; // Returns location
 	}
 
-	public Integer[] getAnimeList() {
+	public String[] getAnimeList() {
 		return this.animeList; // Returns a list of watched animes (by anime IDS)
 	}
 
 	public int[] getEpisodes() {
 		return this.eps;
 	}
-
+	
 	public double[] getScores() {
 		return this.scores; // Returns a list of scores corresponding to animes in anime list
 	}
@@ -171,7 +207,7 @@ public class User {
 
 	public static void main(String[] args) throws SQLException, IOException {
 
-		Integer[] animeList1 = { 1, 2, 3, 4, 5 };
+		String[] animeList1 = { "5680", "106", "122", "481", "75" };
 		int[] eps1 = { 4, 2, 7, 5, 6 };
 		double[] scores1 = { 4.0, 2.0, 7.0, 2.0, 3.0 };
 

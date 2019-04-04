@@ -11,42 +11,6 @@ import UserProgram.User;
 
 public class AnimeData {
 
-	public static void fuck() throws SQLException{
-		
-		
-		ArrayList<String> allmates= new ArrayList<String>();
-		
-		for(int i = 0; i < strthisanimes.length; i++) {
-			String[] mates = AnimeData.retrieve_data(strthisanimes[i], "users").split(" ");
-			for(int j = 0; j < mates.length; j++)
-				allmates.add(mates[i]);
-		}
-		
-		String[] strmates = new String[allmates.size()];
-		
-		for(int j = 0; j< allmates.size(); j++) {
-			strmates[j] = allmates.get(j);
-			String[] strthisanimes = DataManipulate.retrieve_data(strmates[j], "animeID").split(" ");
-			String[] strthiseps = DataManipulate.retrieve_data(strmates[j], "episodes").split(" ");
-			String[] strthisscore = DataManipulate.retrieve_data(strmates[j], "score").split(" ");
-			
-			int n = strthisanimes.length;
-			
-			int[] thiseps = new int[n];
-			double[] thisscore = new double[n];
-			
-			for(int i = 0; i < strthisanimes.length; i++) {
-				thiseps[i] = Integer.parseInt(strthiseps[i]);
-				thisscore[i] = Double.parseDouble(strthisscore[i]);
-			}
-			
-			String thisloc = DataManipulate.retrieve_data(strmates[j], "location");
-			this.potMat[i] = new User(strmates[j], strthisanimes, thiseps, thisscore, Integer.parseInt(thisloc));
-			
-		}
-		sortPotMat()
-	
-	}
 	public static void main(String[] args) throws SQLException {
 		
 		String[] allusers = DataManipulate.graball_data().split(" ");
