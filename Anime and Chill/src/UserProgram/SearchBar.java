@@ -1,7 +1,13 @@
 package UserProgram;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * The SearchBar class is an abstract object used to represent the search bar and searching for friends 
+ * in the app
+ */
 public class SearchBar {
 
 	private ArrayList<User> allLikedUsers;
@@ -12,11 +18,19 @@ public class SearchBar {
 	private String[] string3 = {"", "", "", "", ""};
 	private String[] string4 = {"", "", "", "", ""};
 
+	/**
+	 * SearchBar object constructor creates an instance of SearchBar
+	 * @param allLikedUsers - arrayList of users that the current user has liked (swiped right)
+	 */
 	public SearchBar(ArrayList<User> allLikedUsers) {
 
 		this.allLikedUsers = allLikedUsers;
 	}
 
+	/**
+	 * search is used for the searching of friends functionality 
+	 * @param searchString - sub-string entered in search bar to be search for ex.name of friend or starting letter
+	 */
 	public void search(String searchString) {
 
 		// This searches for a user based on substring
@@ -31,6 +45,13 @@ public class SearchBar {
 		}
 	}
 
+	/**
+	 * isStart is used to inspect the array of friends and find the friends that start with entered substring
+	 * is used as helper function
+	 * @param a - string entered to check what starts with this
+	 * @param b - string being compared to a to see if it starts with the sub-string a
+	 * @return boolean - True if b does start with sub-string a, False otherwise
+	 */
 	private boolean isStart(String a, String b) {
 		if (b.startsWith(a)) {
 			return true;
@@ -38,6 +59,9 @@ public class SearchBar {
 			return false;
 	}
 
+	/**
+	 * populate is used to populate items (aka friends) in search bar
+	 */
 	public void populate() {
 
 		try {
@@ -110,22 +134,42 @@ public class SearchBar {
 		}
 	}
 
+	/**
+	 * getString1 is a getter that fetches string1's of the object
+	 * @return array of Strings - array of strings representing String1
+	 */
 	public String[] getString1() {
 		return this.string1;
 	}
 
+	/**
+	 * getString2 is a getter that fetches string2's of the object
+	 * @return array of Strings - array of strings representing String2
+	 */
 	public String[] getString2() {
 		return this.string2;
 	}
 
+	/**
+	 * getString3 is a getter that fetches string3's of the object
+	 * @return array of Strings - array of strings representing String3
+	 */
 	public String[] getString3() {
 		return this.string3;
 	}
 
+	/**
+	 * getString4 is a getter that fetches string4's of the object
+	 * @return array of Strings - array of strings representing String4
+	 */
 	public String[] getString4() {
 		return this.string4;
 	}
 
+//	/**
+//	 * main
+//	 * @param args - array of strings
+//	 */
 //	public static void main(String[] args) {
 //
 //		Integer[] animeList = { 5, 1, 2, 3, 4 };

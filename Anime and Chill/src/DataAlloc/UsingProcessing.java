@@ -13,6 +13,10 @@ import UserProgram.User;
 import processing.core.PApplet;
 import processing.core.PImage;
 
+/**
+ * The UsingProcessing class is used to deal with the UI and displaying information on the screen
+ * using processing
+ */
 public class UsingProcessing extends PApplet {
 
 	PImage main_menu, main_bar, friends_list, login_screen, loading_screen, talk_screen;
@@ -36,15 +40,25 @@ public class UsingProcessing extends PApplet {
 
 	String[] storyString;
 
+	/**
+	 * main
+	 * @param args - array of strings
+	 */
 	public static void main(String[] args) {
 		PApplet.main("DataAlloc.UsingProcessing");
 	}
 
+	/**
+	 * settings is used to set size of the display screen
+	 */
 	public void settings() {
 		size(800, 480);
 //		fullScreen();
 	}
 
+	/**
+	 * setup is used to set up attributes of the display screen including positions
+	 */
 	public void setup() {
 		String[] animeList1 = { "5680", "106", "122", "481", "75" };
 		int[] eps1 = { 1, 2, 3, 4, 5 };
@@ -131,6 +145,9 @@ public class UsingProcessing extends PApplet {
 		storyString = story().split(",");
 	}
 
+	/**
+	 * keyPressed is used to actively check if a key is pressed and which one
+	 */
 	public void keyPressed() {
 
 		if (currentScreen == 0) {
@@ -190,6 +207,9 @@ public class UsingProcessing extends PApplet {
 		}
 	}
 
+	/**
+	 * mousePressed is used to actively check if the mouse is clicked and where
+	 */
 	public void mousePressed() {
 		if (currentScreen > 0) {
 			if (60 < mouseX && mouseX < width / 3 && mouseY < 52) {
@@ -227,6 +247,9 @@ public class UsingProcessing extends PApplet {
 		}
 	}
 
+	/**
+	 * draw is used to draw things on the screen to look nice ex.swipe rectangles, text, etc.
+	 */
 	public void draw() {
 		if (currentScreen == 0) {
 
@@ -303,6 +326,10 @@ public class UsingProcessing extends PApplet {
 		}
 	}
 
+	/**
+	 * search is used to interact with user allowing searching functionality
+	 * using the search bar
+	 */
 	public void search(String input) {
 		findSearch = new SearchBar(Akila.getFriends());
 
@@ -353,6 +380,9 @@ public class UsingProcessing extends PApplet {
 //		System.out.println();
 	}
 
+	/**
+	 * story is used to generate the users' story
+	 */
 	public String story() {
 		String[] NounList = new String[10];
 		String[] AnimeList = new String[10];
@@ -404,6 +434,9 @@ public class UsingProcessing extends PApplet {
 		return "Hi my name is " + name + ",I like " + noun + ".," + "My favorite anime is " + anime + ".";
 	}
 
+	/**
+	 * storyDisplay is used to display the users' story when description is clicked
+	 */
 	public void storyDisplay() {
 		fill(0);
 		rect(width / 2, height / 2 - 35, 250, 250);

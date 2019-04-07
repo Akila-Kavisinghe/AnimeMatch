@@ -5,6 +5,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
+/**
+ * The FilterFunction class acts as a filter for the csv file
+ */
 public class FilterFunction {
 	
 	private int count;
@@ -12,6 +15,10 @@ public class FilterFunction {
 	private BufferedReader buff;
 	private File file;
 	
+	/**
+	 * FilterFunction constructor makes filterFunction instance
+	 * @throws IOException - Input/Output error
+	 */
 	public FilterFunction()throws IOException{
 		this.count = 0;
 		this.current = "";
@@ -19,6 +26,10 @@ public class FilterFunction {
 		this.buff = new BufferedReader(new FileReader(this.file));
 	}
 	
+	/**
+	 * filter method makes filters out certain lines from csv
+	 * @throws IOException - Input/Output error
+	 */
 	public String filter()throws IOException{
 		
 		String line = null;
@@ -54,6 +65,11 @@ public class FilterFunction {
 		return line;
 	}
 	
+	/**
+	 * main
+	 * @param args - array of strings
+	 * @throws IOException - Input/Output error
+	 */
 	public static void main(String[] args)throws IOException {
 		FilterFunction f = new FilterFunction();
 		String line = null;

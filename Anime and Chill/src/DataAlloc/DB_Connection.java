@@ -3,8 +3,15 @@ package DataAlloc;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-
+/**
+ * The DB Connection class provides serves as a connecting class to the database
+ */
 public class DB_Connection {
+	
+	/**
+	 * main
+	 * @param args - array of strings
+	 */
 	public static void main(String[] args) {
 		DB_Connection obj_DB_Connection = new DB_Connection();
 		Connection connection = null;
@@ -12,6 +19,10 @@ public class DB_Connection {
 		System.out.println(connection);
 	}
 
+	/**
+	 * get_connection is used to fetch a Connection to database
+	 * @return Connection - the connection to the database
+	 */
 	public Connection get_connection() {
 		Connection connection = null;
 		try {

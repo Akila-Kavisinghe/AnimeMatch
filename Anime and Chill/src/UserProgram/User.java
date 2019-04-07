@@ -8,6 +8,9 @@ import DataAlloc.AnimeData;
 import DataAlloc.DataManipulate;
 import Graphs.ShortPath;
 
+/**
+ * The User class is an abstract object used to represent a user including username, scores, etc.
+ */
 public class User {
 
 	private String username; // User name
@@ -24,6 +27,14 @@ public class User {
 
 	private int location;
 
+	/**
+	 * User object constructor creates an instance of user
+	 * @param username - String representing the user's username
+	 * @param animeList - array of Strings representing the animes that the user has watched
+	 * @param eps - array of integers showing how many episodes the user has watched of each anime in animeList
+	 * @param scores -array of doubles showing what score the user has giver to each anime they watch
+	 * @param location - integer value representing the location of the user
+	 */
 	public User(String username, String[] animeList, int[] eps, double[] scores, int location) {
 		this.username = username;
 		this.animeList = animeList;
@@ -36,6 +47,10 @@ public class User {
 	/* ***************** FUNCTION METHODS ********************* */
 	/* ***************************************************** */
 
+	/**
+	 * swipe serves the functionality of the user liking or pasing the displayed potential match
+	 * @param verdict - boolean representing like or pass (revieved from UI) depends on what user chose
+	 */
 	public void swipe(boolean verdict) {
 
 		if (verdict) {
@@ -50,12 +65,22 @@ public class User {
 		}
 	}
 
+	/**
+	 * fillPotentialTest is used to add users to the list of potential matches depending on the graphing algorithm
+	 * This function serves as a test
+	 * @param users - the array of all users
+	 */
 	public void fillPotentialTest(User[] users) {
 		for (int i = 0; i < users.length; i++) {
 			this.potMat[i] = users[i];
 		}
 	}
 
+	/**
+	 * fillPotential is used to add users to the list of potential matches depending on the graphing algorithm
+	 * @throws IOException - Input/Output error
+	 * @throws SQLException - database access error
+	 */
 	public void fillPotential() throws SQLException, IOException {
 
 		this.potMatCount = 0;
@@ -131,6 +156,12 @@ public class User {
 //		sortPotMat();
 	}
 
+	/**
+	 * compareUser is used to compare a user to the current user object to determine a compatibility value
+	 * @param that - User object that needs to be compared against this
+	 * @return double - represents compatibility score
+	 * @throws IOException - Input/Output error
+	 */
 	private double compareUser(User that) throws IOException{
 
 		double totalDifference = 0.0;
@@ -153,6 +184,11 @@ public class User {
 		return compate;
 	}
 
+	/**
+	 * sortPotMat is used to sort the list of potential matches using compatibility scores
+	 * This is a helper function
+	 * @throws IOException - Input/Output error
+	 */
 	private void sortPotMat() throws IOException{
 
 		// Trying to sort potMat by the scores received by compareUser
@@ -173,34 +209,66 @@ public class User {
 	/* ***************** ACCESSOR METHODS ****************** */
 	/* ***************************************************** */
 
+	/**
+	 * getUser is a getter used to fetch username of user
+	 * @return string - represents user's username
+	 */
 	public String getUser() {
 		return this.username; // Returns user name
 	}
 
+	/**
+	 * getFriends is a getter used to fetch friends list of user
+	 * @return arrayList of users - represents user's friend list (liked users)
+	 */
 	public ArrayList<User> getFriends() {
 		return this.friends; // Returns friends list
 	}
 
+	/**
+	 * getLocation is a getter used to fetch location of user
+	 * @return integer - represents user's location
+	 */
 	public int getLocation() {
 		return this.location; // Returns location
 	}
 
+	/**
+	 * getAnimeList is a getter used to fetch list of anime that the user watched
+	 * @return array of strings - represents user's anime list
+	 */
 	public String[] getAnimeList() {
 		return this.animeList; // Returns a list of watched animes (by anime IDS)
 	}
 
+	/**
+	 * getEpisodes is a getter used to fetch the episode array corresponding to anime list of user
+	 * @return array of integers - represents user's watched episodes for each anime
+	 */
 	public int[] getEpisodes() {
 		return this.eps;
 	}
 	
+	/**
+	 * getScores is a getter used to fetch scores that user gave their watched anime
+	 * @return array of doubles - represents user's scores array
+	 */
 	public double[] getScores() {
 		return this.scores; // Returns a list of scores corresponding to animes in anime list
 	}
 
+	/**
+	 * getPotMatUser is a getter used to fetch potential match of user
+	 * @return User - a single user that is a potential match
+	 */
 	public User getPotMatUser() {
 		return this.potMat[this.potMatCount];
 	}
 
+	/**
+	 * getPotMat is a getter used to fetch array of potential matches of the user
+	 * @return array of users - contains user's potential matches
+	 */
 	public User[] getPotMat() {
 		return this.potMat; // Gets list of potential mate (generated by data base).
 	}
@@ -209,6 +277,12 @@ public class User {
 	/* ***************** MAIN TEST METHODS ***************** */
 	/* ***************************************************** */
 
+	/**
+	 * main
+	 * @param args - array of strings
+	 * @throws IOException - Input/Output error
+	 * @throws SQLException - database access error
+	 */
 	public static void main(String[] args) throws SQLException, IOException {
 
 		String[] animeList1 = { "5680", "106", "122", "481", "75" };

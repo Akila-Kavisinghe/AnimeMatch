@@ -9,8 +9,16 @@ import java.util.Random;
 
 import UserProgram.User;
 
+/**
+ * The AnimeData class provides functions that work with the anime data from the database 
+ */
 public class AnimeData {
 
+	/**
+	 * main
+	 * @param args - array of strings
+	 * @throws SQLException - database access error
+	 */
 	public static void main(String[] args) throws SQLException {
 		
 		String[] allusers = DataManipulate.graball_data().split(" ");
@@ -22,6 +30,13 @@ public class AnimeData {
 		}
 	}
 	
+	/**
+	 * retrieve_data is used to fetch data for a specific anime from the database
+	 * @param animeID - string corresponding to the anime's ID
+	 * @param field - string corresponding to wanted field
+	 * @return String - data retrieved from database for the input anime from required field
+	 * @throws SQLException - database access error
+	 */
 	public static String retrieve_data(String animeID, String field) throws SQLException {
 		DB_Connection obj_DB_Connection = new DB_Connection();
 		Connection connection = null;
@@ -49,7 +64,11 @@ public class AnimeData {
 		return entry;
 	}
 	
-	
+	/**
+	 * random_data fetches data for one random anime
+	 * @return String - data retrieved from database for a random anime
+	 * @throws SQLException - database access error
+	 */
 	public static String random_data() throws SQLException {
 		DB_Connection obj_DB_Connection = new DB_Connection();
 		Connection connection = null;
@@ -81,6 +100,11 @@ public class AnimeData {
 		}
 	}
 	
+	/**
+	 * show_data is used to print data from the database onto console
+	 * @param field - string corresponding to wanted field's data
+	 * @throws SQLException - database access error
+	 */
 	public static void show_data(String field) throws SQLException {
 		DB_Connection obj_DB_Connection = new DB_Connection();
 		Connection connection = null;
@@ -104,6 +128,13 @@ public class AnimeData {
 		}
 	}
 	
+	/**
+	 * check_data is used to check data for an anime in specific field from the database
+	 * @param name - string corresponding to anime's name
+	 * @param field - string corresponding to target field
+	 * @return boolean - weather anime exists in database
+	 * @throws SQLException - database access error
+	 */
 	public static boolean check_data(String name, String field) throws SQLException {
 		DB_Connection obj_DB_Connection = new DB_Connection();
 		Connection connection = null;
@@ -134,7 +165,12 @@ public class AnimeData {
 		}
 	}
 	
-	
+	/**
+	 * add_data is used to add anime to the database
+	 * @param animeID - string corresponding to anime's ID
+	 * @param users - string corresponding to users that watch the anime
+	 * @throws SQLException - database access error
+	 */
 	public static void add_data(String animeID, String users) throws SQLException {
 		DB_Connection obj_DB_Connection = new DB_Connection();
 		Connection connection = null;
@@ -174,6 +210,13 @@ public class AnimeData {
 		}
 	}
 	
+	/**
+	 * update_data is used to update anime data in the database
+	 * @param animeID - string corresponding to anime's ID
+	 * @param field - string corresponding to wanted field to be changed
+	 * @param neval - string corresponding to new value of altered field
+	 * @throws SQLException - database access error
+	 */
 	public static void update_data(String animeID, String field, String newval) throws SQLException {
 		DB_Connection obj_DB_Connection = new DB_Connection();
 		Connection connection = null;

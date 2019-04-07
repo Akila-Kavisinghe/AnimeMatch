@@ -10,12 +10,27 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Random;
 
+/**
+ * The PopAnime class puts/gets data from csv into the database relating to anime
+ */
 public class PopAnime {
+	
+	/**
+	 * main
+	 * @param args - array of strings
+	 * @throws IOException - Input/Output error
+	 * @throws SQLException - database access error
+	 */
 	public static void main(String[] args) throws IOException, SQLException{
 		populateAnime();
 		//DataManipulate.show_data("location");
 	}
 	
+	/**
+	 * populateAnime is used to populate anime data into the database
+	 * @throws IOException - Input/Output error
+	 * @throws SQLException - database access error
+	 */
 	public static void populateAnime() throws IOException, SQLException{
 		File file = new File("Data/AnimeList.csv");
 		BufferedReader buff = new BufferedReader(new FileReader(file));
@@ -40,6 +55,13 @@ public class PopAnime {
 		buff.close();
 	}
 	
+	/**
+	 * retrieve_data is used to fetch data for a specific anime from the database
+	 * @param animeID - string corresponding to the anime's ID
+	 * @param field - string corresponding to wanted field
+	 * @return String - data retrieved from database for the input anime from required field
+	 * @throws SQLException - database access error
+	 */
 	public static String retrieve_data(String animeID, String field) throws SQLException {
 		DB_Connection obj_DB_Connection = new DB_Connection();
 		Connection connection = null;
@@ -69,6 +91,13 @@ public class PopAnime {
 		return entry;
 	}
 	
+	/**
+	 * check_data is used to check data for an anime in specific field from the database
+	 * @param name - string corresponding to anime's name
+	 * @param field - string corresponding to target field
+	 * @return boolean - weather anime exists in database
+	 * @throws SQLException - database access error
+	 */
 	public static boolean check_data(String name, String field) throws SQLException {
 		DB_Connection obj_DB_Connection = new DB_Connection();
 		Connection connection = null;
@@ -99,6 +128,12 @@ public class PopAnime {
 		}
 	}
 	
+	/**
+	 * add_data is used to add anime to the database
+	 * @param animeID - string corresponding to anime's ID
+	 * @param users - string corresponding to users that watch the anime
+	 * @throws SQLException - database access error
+	 */
 	public static void add_data(String animeID, String name) throws SQLException {
 		DB_Connection obj_DB_Connection = new DB_Connection();
 		Connection connection = null;

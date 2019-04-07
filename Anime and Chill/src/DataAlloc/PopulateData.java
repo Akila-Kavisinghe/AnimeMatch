@@ -7,17 +7,36 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Random;
 
-
+/**
+ * The PopulateData class puts data from csv into the database relating to users
+ */
 public class PopulateData {
+	
+	/**
+	 * main
+	 * @param args - array of strings
+	 * @throws IOException - Input/Output error
+	 * @throws SQLException - database access error
+	 */
 	public static void main(String[] args) throws IOException, SQLException{
 		populateUsers();
 		//DataManipulate.show_data("location");
 	}
 	
+	/**
+	 * strip is used to remove unnecessary characters
+	 * @param str - string that needs to be striped
+	 * @return String - after being striped
+	 */
 	public static String strip(String str) {
 		return str.replaceAll("[^\\p{Print}]", "");
 	}
 	
+	/**
+	 * populateUsers is used to populate user data into the database
+	 * @throws IOException - Input/Output error
+	 * @throws SQLException - database access error
+	 */
 	public static void populateUsers() throws IOException, SQLException{
 		File file = new File("Data/UserAnimeList.csv");
 		BufferedReader buff = new BufferedReader(new FileReader(file));

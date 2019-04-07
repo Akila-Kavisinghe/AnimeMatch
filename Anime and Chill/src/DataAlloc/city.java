@@ -1,5 +1,8 @@
 package DataAlloc;
 
+/**
+ * The Merge class provides enum type representation for the list of cities
+ */
 public enum city {
 	boston, new_york_city, philadelphia, baltimore, washington, charlotte, atlanta, pittsburgh,
 	columbus, indianapolis, st_louis, kansas_city, denver, oklahoma_city, dallas, houston, new_orleans,

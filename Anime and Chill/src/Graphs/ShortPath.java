@@ -6,8 +6,16 @@ import java.io.FileReader;
 import java.io.IOException;
 import DataAlloc.city;
 
-
+/**
+ * The ShortPath class finds shortest path between nodes
+ */
 public class ShortPath {
+	
+	/**
+	 * strip is used to strip string and replace " ", ".", "__" with "_"
+	 * @param line - string that needs to be striped
+	 * @return String - striped string
+	 */
 	public static String strip(String line) {
 		line = line.replace(" ", "_");
 		line = line.replace(".", "_");
@@ -16,6 +24,11 @@ public class ShortPath {
 		return line;
 	}
 	
+	/**
+	 * buildG is used to build the graph
+	 * @return Graph - returns the graph
+	 * @throws IOException - Input/Output error
+	 */
 	public static Graph buildG() throws IOException{
 		File cities = new File("Data/connectedCities.txt");
 		BufferedReader buff = new BufferedReader(new FileReader(cities));
@@ -41,7 +54,13 @@ public class ShortPath {
 		return graph;
 	}
 	
-	//finding shortest path between people
+	/**
+	 * path is used to find shortest path between people
+	 * @param start - source node
+	 * @param end - destination node
+	 * @return integer - length of the path
+	 * @throws IOException - Input/Output error
+	 */
 	public static int path(int start, int end) throws IOException {
 		Graph graph = buildG();
 		BreadthFirstPaths bfs = new BreadthFirstPaths(graph, start);

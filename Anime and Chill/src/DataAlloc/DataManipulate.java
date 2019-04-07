@@ -6,7 +6,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Random;
 
+/**
+ * The Data Manipulate class provides functions that work with retrieving data from the database
+ */
 public class DataManipulate {
+	
+	/**
+	 * main
+	 * @param args - array of strings
+	 * @throws SQLException - database access error
+	 */
 	public static void main(String[] args) throws SQLException {
 		String user = "Chris";
 		String ID = "1";
@@ -19,6 +28,13 @@ public class DataManipulate {
 		//show_data(field);
 	}
 	
+	/**
+	 * retrieve_data is used to fetch data for user in specific field from the database
+	 * @param username - string corresponding to user name
+	 * @param field - string corresponding to wanted field
+	 * @return String - data retrieved from database for the input user from required field
+	 * @throws SQLException - database access error
+	 */
 	public static String retrieve_data(String username, String field) throws SQLException {
 		DB_Connection obj_DB_Connection = new DB_Connection();
 		Connection connection = null;
@@ -46,6 +62,11 @@ public class DataManipulate {
 		return entry;
 	}
 	
+	/**
+	 * graball_data is used to fetch all the data from the database
+	 * @return String - containing all of the data
+	 * @throws SQLException - database access error
+	 */
 	public static String graball_data() throws SQLException {
 		DB_Connection obj_DB_Connection = new DB_Connection();
 		Connection connection = null;
@@ -73,6 +94,11 @@ public class DataManipulate {
 		}
 	}
 	
+	/**
+	 * random_data fetches data for one random user
+	 * @return String - data retrieved from database for a random user
+	 * @throws SQLException - database access error
+	 */
 	public static String random_data() throws SQLException {
 		DB_Connection obj_DB_Connection = new DB_Connection();
 		Connection connection = null;
@@ -104,6 +130,11 @@ public class DataManipulate {
 		}
 	}
 	
+	/**
+	 * show_data is used to print data from the database onto console
+	 * @param field - string corresponding to wanted field's data
+	 * @throws SQLException - database access error
+	 */
 	public static void show_data(String field) throws SQLException {
 		DB_Connection obj_DB_Connection = new DB_Connection();
 		Connection connection = null;
@@ -127,6 +158,13 @@ public class DataManipulate {
 		}
 	}
 	
+	/**
+	 * check_data is used to check data for user in specific field from the database
+	 * @param name - string corresponding to user's name
+	 * @param field - string corresponding to target field
+	 * @return boolean - weather user exists in database
+	 * @throws SQLException - database access error
+	 */
 	public static boolean check_data(String name, String field) throws SQLException {
 		DB_Connection obj_DB_Connection = new DB_Connection();
 		Connection connection = null;
@@ -157,7 +195,15 @@ public class DataManipulate {
 		}
 	}
 	
-	
+	/**
+	 * add_data is used to add user to the database
+	 * @param username - string corresponding to user name
+	 * @param animeID - string corresponding to anime's ID
+	 * @param episodes - string corresponding to episodes watched
+	 * @param score - string corresponding to score
+	 * @param location - integer corresponding to location
+	 * @throws SQLException - database access error
+	 */
 	public static void add_data(String username, String animeID, String episodes, String score, int location) throws SQLException {
 		DB_Connection obj_DB_Connection = new DB_Connection();
 		Connection connection = null;
@@ -199,6 +245,13 @@ public class DataManipulate {
 		}
 	}
 	
+	/**
+	 * update_data is used to update user data in the database
+	 * @param username - string corresponding to target user's name
+	 * @param field - string corresponding to wanted field to be changed
+	 * @param neval - string corresponding to new value of altered field
+	 * @throws SQLException - database access error
+	 */
 	public static void update_data(String username, String field, String newval) throws SQLException {
 		DB_Connection obj_DB_Connection = new DB_Connection();
 		Connection connection = null;
