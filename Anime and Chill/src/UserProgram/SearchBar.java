@@ -66,12 +66,27 @@ public class SearchBar {
 
 		try {
 			this.string1[0] = results[0].getUser(); // USER
-			this.string1[1] = (results[0].getAnimeList()[0]) + " " + (results[0].getAnimeList()[1]) + " "
-					+ (results[0].getAnimeList()[3]); // AnimeList
-			this.string1[2] = (results[0].getEpisodes()[0]) + " " + (results[0].getEpisodes()[1]) + " "
-					+ (results[0].getEpisodes()[2]); // eps
-			this.string1[3] = (results[0].getScores()[0]) + " " + (results[0].getScores()[1]) + " "
-					+ (results[0].getScores()[2]); // Scores
+			for(int i = 0; i < 3; i++) {
+				if(results[0].getAnimeList().length == i)
+					break;
+				else if(results[0].getAnimeList().length - 1 == i) {
+					this.string1[1] += results[0].getAnimeList()[i]; //animelist
+					this.string1[2] += results[0].getEpisodes()[i];  //eps
+					this.string1[3] += results[0].getScores()[i];   //scores
+				}
+				else {
+					this.string1[1] += results[0].getAnimeList()[i] + ", "; //animelist
+					this.string1[2] += results[0].getEpisodes()[i] + ", ";  //eps
+					this.string1[3] += results[0].getScores()[i] + ", ";    //scores
+				}
+			}
+			
+//			this.string1[1] = (results[0].getAnimeList()[0]) + " " + (results[0].getAnimeList()[1]) + " "
+//					+ (results[0].getAnimeList()[3]); // AnimeList
+//			this.string1[2] = (results[0].getEpisodes()[0]) + " " + (results[0].getEpisodes()[1]) + " "
+//					+ (results[0].getEpisodes()[2]); // eps
+//			this.string1[3] = (results[0].getScores()[0]) + " " + (results[0].getScores()[1]) + " "
+//					+ (results[0].getScores()[2]); // Scores
 			this.string1[4] = Integer.toString(results[0].getLocation());
 			; // Location
 		} catch (NullPointerException e) {
@@ -81,12 +96,28 @@ public class SearchBar {
 
 		try {
 			this.string2[0] = results[1].getUser(); // USER
-			this.string2[1] = (results[1].getAnimeList()[0]) + " " + (results[1].getAnimeList()[1]) + " "
-					+ (results[1].getAnimeList()[3]); // AnimeList
-			this.string2[2] = (results[1].getEpisodes()[0]) + " " + (results[1].getEpisodes()[1]) + " "
-					+ (results[1].getEpisodes()[2]); // eps
-			this.string2[3] = (results[1].getScores()[0]) + " " + (results[1].getScores()[1]) + " "
-					+ (results[1].getScores()[2]); // Scores
+			
+			for(int i = 0; i < 3; i++) {
+				if(results[1].getAnimeList().length == i)
+					break;
+				else if(results[1].getAnimeList().length - 1 == i) {
+					this.string2[1] += results[1].getAnimeList()[i]; //animelist
+					this.string2[2] += results[1].getEpisodes()[i];  //eps
+					this.string2[3] += results[1].getScores()[i];   //scores
+				}
+				else {
+					this.string2[1] += results[1].getAnimeList()[i] + ", "; //animelist
+					this.string2[2] += results[1].getEpisodes()[i] + ", ";  //eps
+					this.string2[3] += results[1].getScores()[i] + ", ";    //scores
+				}
+			}
+			
+//			this.string2[1] = (results[1].getAnimeList()[0]) + " " + (results[1].getAnimeList()[1]) + " "
+//					+ (results[1].getAnimeList()[3]); // AnimeList
+//			this.string2[2] = (results[1].getEpisodes()[0]) + " " + (results[1].getEpisodes()[1]) + " "
+//					+ (results[1].getEpisodes()[2]); // eps
+//			this.string2[3] = (results[1].getScores()[0]) + " " + (results[1].getScores()[1]) + " "
+//					+ (results[1].getScores()[2]); // Scores
 			this.string2[4] = Integer.toString(results[1].getLocation());
 			; // Location
 		} catch (NullPointerException e) {
@@ -98,13 +129,30 @@ public class SearchBar {
 		}
 
 		try {
+			
 			this.string3[0] = results[2].getUser(); // USER
-			this.string3[1] = (results[2].getAnimeList()[0]) + " " + (results[2].getAnimeList()[1]) + " "
-					+ (results[2].getAnimeList()[3]); // AnimeList
-			this.string3[2] = (results[2].getEpisodes()[0]) + " " + (results[2].getEpisodes()[1]) + " "
-					+ (results[2].getEpisodes()[2]); // eps
-			this.string3[3] = (results[2].getScores()[0]) + " " + (results[2].getScores()[1]) + " "
-					+ (results[2].getScores()[2]); // Scores
+			
+			for(int i = 0; i < 3; i++) {
+				if(results[2].getAnimeList().length == i)
+					break;
+				else if(results[2].getAnimeList().length - 1 == i) {
+					this.string3[1] += results[2].getAnimeList()[i]; //animelist
+					this.string3[2] += results[2].getEpisodes()[i];  //eps
+					this.string3[3] += results[2].getScores()[i];   //scores
+				}
+				else {
+					this.string3[1] += results[2].getAnimeList()[i] + ", "; //animelist
+					this.string3[2] += results[2].getEpisodes()[i] + ", ";  //eps
+					this.string3[3] += results[2].getScores()[i] + ", ";    //scores
+				}
+			}
+			
+//			this.string3[1] = (results[2].getAnimeList()[0]) + " " + (results[2].getAnimeList()[1]) + " "
+//					+ (results[2].getAnimeList()[3]); // AnimeList
+//			this.string3[2] = (results[2].getEpisodes()[0]) + " " + (results[2].getEpisodes()[1]) + " "
+//					+ (results[2].getEpisodes()[2]); // eps
+//			this.string3[3] = (results[2].getScores()[0]) + " " + (results[2].getScores()[1]) + " "
+//					+ (results[2].getScores()[2]); // Scores
 			this.string3[4] =  Integer.toString(results[2].getLocation());
 			; // Location
 		} catch (NullPointerException e) {
@@ -117,12 +165,28 @@ public class SearchBar {
 
 		try {
 			this.string4[0] = results[3].getUser(); // USER
-			this.string4[1] = (results[3].getAnimeList()[0]) + " " + (results[3].getAnimeList()[1]) + " "
-					+ (results[3].getAnimeList()[3]); // AnimeList
-			this.string4[2] = (results[3].getEpisodes()[0]) + " " + (results[3].getEpisodes()[1]) + " "
-					+ (results[3].getEpisodes()[2]); // eps
-			this.string4[3] = (results[3].getScores()[0]) + " " + (results[3].getScores()[1]) + " "
-					+ (results[3].getScores()[2]); // Scores
+			
+			for(int i = 0; i < 3; i++) {
+				if(results[3].getAnimeList().length == i)
+					break;
+				else if(results[3].getAnimeList().length - 1 == i) {
+					this.string4[1] += results[3].getAnimeList()[i]; //animelist
+					this.string4[2] += results[3].getEpisodes()[i];  //eps
+					this.string4[3] += results[3].getScores()[i];   //scores
+				}
+				else {
+					this.string4[1] += results[3].getAnimeList()[i] + ", "; //animelist
+					this.string4[2] += results[3].getEpisodes()[i] + ", ";  //eps
+					this.string4[3] += results[3].getScores()[i] + ", ";    //scores
+				}
+			}
+			
+//			this.string4[1] = (results[3].getAnimeList()[0]) + " " + (results[3].getAnimeList()[1]) + " "
+//					+ (results[3].getAnimeList()[3]); // AnimeList
+//			this.string4[2] = (results[3].getEpisodes()[0]) + " " + (results[3].getEpisodes()[1]) + " "
+//					+ (results[3].getEpisodes()[2]); // eps
+//			this.string4[3] = (results[3].getScores()[0]) + " " + (results[3].getScores()[1]) + " "
+//					+ (results[3].getScores()[2]); // Scores
 			this.string4[4] = Integer.toString(results[3].getLocation());
 			; // Location
 		} catch (NullPointerException e) {

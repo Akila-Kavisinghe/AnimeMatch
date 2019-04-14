@@ -110,11 +110,11 @@ public class UsingProcessing extends PApplet {
 
 		background(255);
 //		Akila.fillPotentialTest(users);
-//		loading_screen = loadImage("loading_screen.jpg");
-//		loading_screen.resize(width, height);
-//		image(loading_screen, 0, 0);
-//
-//		delay(7000);
+		loading_screen = loadImage("loading_screen.jpg");
+		loading_screen.resize(width, height);
+		image(loading_screen, 0, 0);
+
+		delay(7000);
 
 		/* IMAGE LOADING */
 		login_screen = loadImage("logo_anime.png");
@@ -275,13 +275,22 @@ public class UsingProcessing extends PApplet {
 			rect(width / 2, height / 2 - 35, 250, 250);
 			rect(width / 2, height - 95, 250, 100);
 
-			User potMatUser = Akila.getPotMatUser();
 			
-
-			
+				User potMatUser = Akila.getPotMatUser();
 				String userName = potMatUser.getUser();
-				String userAnimeList = potMatUser.getAnimeList()[0] + ", " + potMatUser.getAnimeList()[1] + ", "
-						+ potMatUser.getAnimeList()[2]; // WE NEED TO GET THE ANIME NAME INSTEAD OF SHOWING THE ID
+				String userAnimeList = "";
+				for(int i = 0; i < 3; i++) {
+					if(potMatUser.getAnimeList().length == i)
+						break;
+					else if(potMatUser.getAnimeList().length - 1 == i)
+						userAnimeList += potMatUser.getAnimeList()[i];
+					else {
+						userAnimeList += potMatUser.getAnimeList()[i] + ", ";
+					}
+				}
+				
+				//String userAnimeList = potMatUser.getAnimeList()[0] + ", " + potMatUser.getAnimeList()[1] + ", "
+				//		+ potMatUser.getAnimeList()[2]; // WE NEED TO GET THE ANIME NAME INSTEAD OF SHOWING THE ID
 				String userCity = "" + city.values()[potMatUser.getLocation()];
 				userCity = userCity.replace("_", " ");
 				textSize(24);
@@ -293,7 +302,7 @@ public class UsingProcessing extends PApplet {
 				image(profilePictures[random], width / 2, height / 2 - 35);
 				if (storyCheck) {
 					storyDisplay();
-				}
+			}
 
 
 		} else if (currentScreen == 2) {

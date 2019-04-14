@@ -109,10 +109,19 @@ public class User {
 				if (!(mates[j].equals(this.username)))
 					allmates.add(mates[j]);
 			}
+			
+			if(allmates.size() < 100) {
+				int ogsize = allmates.size();
+				for(int j = 0; j < 100-ogsize; j++) {
+					String randomuser = DataManipulate.random_data();
+					if(!(randomuser.equals(this.username)))
+						allmates.add(randomuser);
+				}
+			}
 		}
 
 		String[] strmates = new String[allmates.size()];
-
+		
 		for (int j = 0; j < allmates.size(); j++) {
 			strmates[j] = allmates.get(j);
 			String[] strthisanimes = DataManipulate.retrieve_data(strmates[j], "animeID").split(" ");
@@ -130,13 +139,12 @@ public class User {
 			}
 
 			String thisloc = DataManipulate.retrieve_data(strmates[j], "location");
-			this.potMat.set(j, new User(strmates[j], strthisanimes, thiseps, thisscore, Integer.parseInt(thisloc)));
+			//this.potMat.set(j, new User(strmates[j], strthisanimes, thiseps, thisscore, Integer.parseInt(thisloc)));
+			this.potMat.add(new User(strmates[j], strthisanimes, thiseps, thisscore, Integer.parseInt(thisloc)));
 			this.potMatCount++;
-
 		}
 		this.potMatCount = 0;
 		sortPotMat();
-
 //		for (int i = 0; i < this.potMat.length; i++) {
 //
 //			String userNameRet = DataManipulate.random_data();
@@ -286,6 +294,10 @@ public class User {
 	 * @return User - a single user that is a potential match
 	 */
 	public User getPotMatUser() {
+		
+		
+		
+		
 		return this.potMat.get(this.potMatCount);
 	}
 

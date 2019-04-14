@@ -34,7 +34,7 @@ public class ShortPath {
 		BufferedReader buff = new BufferedReader(new FileReader(cities));
 		String line = null;
 		
-		Graph graph = new Graph(32);
+		Graph graph = new Graph(33);
 		
 		//reads line from the connectedCities text file to make edges
 		while((line = buff.readLine()) != null) {
