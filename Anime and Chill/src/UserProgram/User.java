@@ -145,36 +145,6 @@ public class User {
 		}
 		this.potMatCount = 0;
 		sortPotMat();
-//		for (int i = 0; i < this.potMat.length; i++) {
-//
-//			String userNameRet = DataManipulate.random_data();
-//
-//			String[] animeListStr = DataManipulate.retrieve_data(userNameRet, "animeID").split(" ");
-//			Integer[] animeList = new Integer[animeListStr.length];
-//
-//			for (int j = 0; j < animeList.length; j++) {
-//				animeList[j] = Integer.parseInt(animeListStr[j]);
-//			}
-//
-//			String[] epsStr = DataManipulate.retrieve_data(userNameRet, "episodes").split(" ");
-//			int[] eps = new int[epsStr.length];
-//
-//			for (int j = 0; j < eps.length; j++) {
-//				eps[j] = Integer.parseInt(epsStr[j]);
-//			}
-//
-//			String[] scoresStr = DataManipulate.retrieve_data(userNameRet, "episodes").split(" ");
-//			double[] scores = new double[scoresStr.length];
-//
-//			for (int j = 0; j < scores.length; j++) {
-//				scores[j] = Integer.parseInt(scoresStr[j]);
-//			}
-//
-//			int location = Integer.parseInt(DataManipulate.retrieve_data(userNameRet, "location"));
-//
-//			this.potMat[i] = new User(userNameRet, animeList, eps, scores, location);
-//		}
-//		sortPotMat();
 	}
 
 	/**

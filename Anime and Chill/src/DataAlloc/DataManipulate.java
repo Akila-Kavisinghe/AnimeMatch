@@ -23,9 +23,9 @@ public class DataManipulate {
 		String score = "10";
 		String field = "username";
 		int location = 1;
-		//System.out.println(retrieve_data("Chris", "animeID"));
+
 		add_data(user, ID, eps, score, location);
-		//show_data(field);
+
 	}
 	
 	/**

@@ -53,68 +53,67 @@ public class UsingProcessing extends PApplet {
 	 */
 	public void settings() {
 		size(800, 480);
-//		fullScreen();
 	}
 
 	/**
 	 * setup is used to set up attributes of the display screen including positions
 	 */
 	public void setup() {
+
 		String[] animeList1 = { "5680", "106", "122", "481", "75" };
 		int[] eps1 = { 1, 2, 3, 4, 5 };
 		double[] scores1 = { 1.0, 2.0, 3.0, 4.0, 5.0 };
 		Akila = new User("Akila Kavisinghe", animeList1, eps1, scores1, 12);
-////
-//		String[] animeList = { "27", "7482", "743", "248", "106" };
-//		int[] eps = { 1, 2, 4, 3, 2 };
-//		double[] scores = { 5.0, 2.0, 3.0, 1.0, 7.0 };
-//
-//		User bobby = new User("redVelvet", animeList, eps, scores, 2);
-//
-//		String[] animeList11 = { "434", "278", "223", "451", "5232" };
-//		int[] eps11 = { 1, 2, 4, 3, 5 };
-//		double[] scores11 = { 2.0, 6.0, 3.1, 5.0, 1.5 };
-//
-//		User eric = new User("iamSenpai", animeList11, eps11, scores11, 4);
-//
-//		String[] insAnimes = { "558", "362", "854", "3125", "124" };
-//		int[] insEps = { 12, 234, 97, 82, 72 };
-//		double[] insScores = { 8.3, 9.4, 4.2, 9.5, 3.7 };
-//
-//		User oleg = new User("thedog", insAnimes, insEps, insScores, 7);
-//
-//		String[] insAnimes1 = { "598", "273", "420", "347", "127" };
-//		int[] insEps1 = { 672, 40, 273, 38, 38 };
-//		double[] insScores1 = { 9.2, 8.5, 3.7, 7.9, 8.2 };
-//
-//		User billy = new User("billy798", insAnimes1, insEps1, insScores1, 10);
-//		
-//		String[] insAnimes2 = { "283", "598", "234", "347", "193" };
-//		int[] insEps2 = { 672, 40, 273, 38, 38 };
-//		double[] insScores2 = { 9.2, 8.5, 3.7, 7.9, 8.2 };
-//
-//		User jacky = new User("jackyJACK", insAnimes2, insEps2, insScores2, 12);
-//		String[] insAnimes3 = { "124", "293", "284", "347", "434" };
-//		int[] insEps3 = { 672, 40, 273, 38, 38 };
-//		double[] insScores3 = { 9.2, 8.5, 3.7, 7.9, 8.2 };
-//
-//		User jensen = new User("oldmanjensen", insAnimes3, insEps3, insScores3, 16);
-//		User[] users = { bobby, eric, oleg, billy , jacky, jensen};
 
-		try {
-			Akila.fillPotential();
-		} catch (SQLException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		String[] animeList = { "27", "7482", "743", "248", "106" };
+		int[] eps = { 1, 2, 4, 3, 2 };
+		double[] scores = { 5.0, 2.0, 3.0, 1.0, 7.0 };
 
-		background(255);
-//		Akila.fillPotentialTest(users);
+		User bobby = new User("redVelvet", animeList, eps, scores, 2);
+
+		String[] animeList11 = { "434", "278", "223", "451", "5232" };
+		int[] eps11 = { 1, 2, 4, 3, 5 };
+		double[] scores11 = { 2.0, 6.0, 3.1, 5.0, 1.5 };
+
+		User eric = new User("iamSenpai", animeList11, eps11, scores11, 4);
+
+		String[] insAnimes = { "558", "362", "854", "3125", "124" };
+		int[] insEps = { 12, 234, 97, 82, 72 };
+		double[] insScores = { 8.3, 9.4, 4.2, 9.5, 3.7 };
+
+		User oleg = new User("thedog", insAnimes, insEps, insScores, 7);
+
+		String[] insAnimes1 = { "598", "273", "420", "347", "127" };
+		int[] insEps1 = { 672, 40, 273, 38, 38 };
+		double[] insScores1 = { 9.2, 8.5, 3.7, 7.9, 8.2 };
+
+		User billy = new User("billy798", insAnimes1, insEps1, insScores1, 10);
+		
+		String[] insAnimes2 = { "283", "598", "234", "347", "193" };
+		int[] insEps2 = { 672, 40, 273, 38, 38 };
+		double[] insScores2 = { 9.2, 8.5, 3.7, 7.9, 8.2 };
+
+		User jacky = new User("jackyJACK", insAnimes2, insEps2, insScores2, 12);
+		String[] insAnimes3 = { "124", "293", "284", "347", "434" };
+		int[] insEps3 = { 672, 40, 273, 38, 38 };
+		double[] insScores3 = { 9.2, 8.5, 3.7, 7.9, 8.2 };
+
+		User jensen = new User("oldmanjensen", insAnimes3, insEps3, insScores3, 16);
+		User[] users = { bobby, eric, oleg, billy , jacky, jensen};
+
+		background(255);	
 		loading_screen = loadImage("loading_screen.jpg");
 		loading_screen.resize(width, height);
 		image(loading_screen, 0, 0);
 
-		delay(7000);
+		try {
+			Akila.fillPotential();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			Akila.fillPotentialTest(users);
+		}
+
+		delay(3000);
 
 		/* IMAGE LOADING */
 		login_screen = loadImage("logo_anime.png");
@@ -289,8 +288,6 @@ public class UsingProcessing extends PApplet {
 					}
 				}
 				
-				//String userAnimeList = potMatUser.getAnimeList()[0] + ", " + potMatUser.getAnimeList()[1] + ", "
-				//		+ potMatUser.getAnimeList()[2]; // WE NEED TO GET THE ANIME NAME INSTEAD OF SHOWING THE ID
 				String userCity = "" + city.values()[potMatUser.getLocation()];
 				userCity = userCity.replace("_", " ");
 				textSize(24);
@@ -344,48 +341,6 @@ public class UsingProcessing extends PApplet {
 		findSearch.search(input);
 		findSearch.populate();
 		searched = true;
-
-//		System.out.println("\nSearch Results");
-
-//		for (int i = 0; i < findSearch.getString1().length; i++) {
-//			if (findSearch.getString1()[i].equals(" ")) {
-//				break;
-//			} else {
-//				System.out.print(findSearch.getString1()[i] + "|| ");
-//			}
-//		}
-//
-//		System.out.println();
-//
-//		for (int i = 0; i < findSearch.getString2().length; i++) {
-//			if (findSearch.getString2()[i].equals(" ")) {
-//				break;
-//			} else {
-//				System.out.print(findSearch.getString2()[i] + "|| ");
-//			}
-//		}
-//
-//		System.out.println();
-//
-//		for (int i = 0; i < findSearch.getString3().length; i++) {
-//			if (findSearch.getString3()[i].equals(" ")) {
-//				break;
-//			} else {
-//				System.out.print(findSearch.getString3()[i] + "|| ");
-//			}
-//		}
-//
-//		System.out.println();
-//
-//		for (int i = 0; i < findSearch.getString4().length; i++) {
-//			if (findSearch.getString4()[i].equals(" ")) {
-//				break;
-//			} else {
-//				System.out.print(findSearch.getString4()[i] + "|| ");
-//			}
-//		}
-//
-//		System.out.println();
 	}
 
 	/**
