@@ -5,9 +5,9 @@ package Graphs;
  */
 public class BreadthFirstPaths {
     private static final int INFINITY = Integer.MAX_VALUE;
-    private boolean[] marked;  // marked[v] = is there an s-v path
-    private int[] edgeTo;      // edgeTo[v] = previous edge on shortest s-v path
-    private int[] distTo;      // distTo[v] = number of edges shortest s-v path
+    private boolean[] marked; 
+    private int[] edgeTo;
+    private int[] distTo;
 
     public BreadthFirstPaths(Graph G, int s) {
         marked = new boolean[G.V()];
@@ -17,8 +17,6 @@ public class BreadthFirstPaths {
         bfs(G, s);
     }
 
-
-    // breadth-first search from a single source
     private void bfs(Graph G, int s) {
         Queue<Integer> q = new Queue<Integer>();
         for (int v = 0; v < G.V(); v++)
@@ -61,7 +59,6 @@ public class BreadthFirstPaths {
         return path;
     }
 
-    // throw an IllegalArgumentException unless {@code 0 <= v < V}
     private void validateVertex(int v) {
         int V = marked.length;
         if (v < 0 || v >= V)
